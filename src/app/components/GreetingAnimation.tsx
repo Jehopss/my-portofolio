@@ -6,7 +6,7 @@ export default function Greeting() {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [index, setIndex] = useState(0);
-  const [greetings, setGreetings] = useState([]);
+  const [greetings, setGreetings] = useState<string[]>([]);
   const [speed, setSpeed] = useState(150);
 
   const getBaseGreeting = () => {
