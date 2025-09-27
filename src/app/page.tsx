@@ -1,103 +1,139 @@
-import Image from "next/image";
+"use client";
+
+import ProjectCard from "./components/ProjectCard";
+import Greeting from "./components/GreetingAnimation";
+import { useState } from "react";
+import profilePic from "../../public/Profile.jpg";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isOpen, setIsOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen p-8 text-white relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 -z-10 animate-gradientPalette"></div>
+      {/* Intro Section */}
+      <Greeting />
+      <h1 className="mt-5 text-4xl font-bold mb-4">
+        Hi, I’m{" "}
+        <span
+          onClick={() => setIsOpen(true)}
+          className="text-indigo-400 cursor-pointer hover:underline"
+        >
+          Jonathan Hopi Pranata!
+        </span>
+      </h1>
+
+      <p className="mt-1 text-lg text-white/80">
+        Currently a 5th-semester Computer Science student enrolled in the Master
+        Track Program at BINUS University.
+      </p>
+
+      {/* Glass Container */}
+      <div className="mt-10 w-full max-w-6xl p-8 rounded-2xl bg-white/10 backdrop-blur-md shadow-2xl border border-white/20">
+        {/* Skills Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 text-indigo-400">Skills</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            {["Figma", "MySQL", "React", "Python", "Tailwind CSS"].map(
+              (skill) => (
+                <div
+                  key={skill}
+                  className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm"
+                >
+                  <p className="font-semibold text-white">{skill}</p>
+                </div>
+              )
+            )}
+          </div>
+        </section>
+
+        {/* Expertise Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 text-indigo-400">Expertise</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            {["Machine Learning", "UI/UX Design", "Computer Networks"].map(
+              (exp) => (
+                <div
+                  key={exp}
+                  className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm"
+                >
+                  <p className="font-semibold text-white">{exp}</p>
+                </div>
+              )
+            )}
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section>
+          <h2 className="text-3xl font-bold mb-6 text-indigo-400">Projects</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ProjectCard
+              title="NLP Text Classifier"
+              description="A machine learning model that classifies text using Python and scikit-learn."
+              link="https://github.com/YOUR-USERNAME/nlp-classifier"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <ProjectCard
+              title="Next.js Portfolio"
+              description="My personal portfolio site built with Next.js and Tailwind CSS."
+              link="https://github.com/YOUR-USERNAME/my-portfolio"
+            />
+            <ProjectCard
+              title="Image Processing App"
+              description="A computer vision project using OpenCV and Python."
+              link="https://github.com/YOUR-USERNAME/image-processing-app"
+            />
+          </div>
+        </section>
+      </div>
+
+      {/* Modal */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/40 z-50"
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 w-96 relative border border-white/20"
+            onClick={(e) => e.stopPropagation()}
           >
-            Read our docs
-          </a>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-3 right-3 text-gray-300 hover:text-white"
+            >
+              ✕
+            </button>
+
+            {/* Photo */}
+            <div className="flex justify-center mb-6">
+              <div className="bg-white p-2 pb-6 rounded-lg shadow-lg">
+                <img
+                  src={profilePic.src} // 👈 replace with your photo path in /public
+                  alt="Jonathan Hopi Pranata"
+                  className="w-32 h-32 rounded-md shadow-lg object-cover object-[50%_10%]"
+                />
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold mb-4 text-indigo-400 text-center">
+              About Me
+            </h2>
+            <p className="text-white/90 mb-2">
+              <strong>Name:</strong> Jonathan Hopi Pranata
+            </p>
+            <p className="text-white/90 mb-2">
+              <strong>Program:</strong> Computer Science Master Track
+            </p>
+            <p className="text-white/90 mb-2">
+              <strong>University:</strong> BINUS University
+            </p>
+            <p className="text-white/90 mb-2">
+              <strong>Semester:</strong> 5th Semester
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      )}
+    </main>
   );
 }
