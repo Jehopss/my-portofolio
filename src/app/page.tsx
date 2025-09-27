@@ -24,9 +24,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-8 text-white relative overflow-hidden">
-      {/* Background gradient */}
       <div className="absolute inset-0 -z-10 animate-gradientPalette"></div>
-      {/* Intro Section */}
       <Greeting />
       <h1 className="mt-5 text-4xl font-bold mb-4">
         Hi, I’m{" "}
@@ -43,9 +41,7 @@ export default function Home() {
         Track Program at BINUS University.
       </p>
 
-      {/* Glass Container */}
       <div className="mt-10 w-full max-w-6xl p-8 rounded-2xl bg-white/10 backdrop-blur-md shadow-2xl border border-white/20">
-        {/* Skills Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6 text-indigo-300">Skills</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -67,7 +63,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Expertise Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6 text-indigo-300">Expertise</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -84,7 +79,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Projects Section */}
         <section>
           <h2 className="text-3xl font-bold mb-6 text-indigo-300">Projects</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -107,7 +101,6 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Modal */}
       {isOpen && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black/40 z-50"
@@ -123,12 +116,10 @@ export default function Home() {
             >
               ✕
             </button>
-
-            {/* Photo */}
             <div className="flex justify-center mb-6">
               <div className="bg-white p-2 pb-6 rounded-lg shadow-lg">
                 <img
-                  src={profilePic.src} // 👈 replace with your photo path in /public
+                  src={profilePic.src}
                   alt="Jonathan Hopi Pranata"
                   className="w-32 h-32 rounded-md shadow-lg object-cover object-[50%_10%]"
                 />
