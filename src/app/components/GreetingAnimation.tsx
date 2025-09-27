@@ -95,7 +95,7 @@ export default function Greeting() {
   }, [displayText, isDeleting, greetings, index, speed]);
 
   return (
-    <h1 className={`${styles.typewriter} text-4xl font-bold text-indigo-400`}>
+    <h1 className={`${styles.typewriter} text-4xl font-bold text-indigo-300`}>
       {displayText}
       <span className={styles.cursor}></span>
     </h1>

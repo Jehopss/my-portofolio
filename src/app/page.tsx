@@ -3,10 +3,24 @@
 import ProjectCard from "./components/ProjectCard";
 import Greeting from "./components/GreetingAnimation";
 import { useState } from "react";
+import Image from "next/image";
 import profilePic from "../../public/Profile.jpg";
+import figma from "../../public/figma.png";
+import mysql from "../../public/mysql.png";
+import python from "../../public/python.png";
+import html5 from "../../public/html5.png";
+import tailwindcss from "../../public/tailwindcss.png";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const skills = [
+    { name: "Figma", logo: figma },
+    { name: "MySQL", logo: mysql },
+    { name: "Python", logo: python },
+    { name: "HTML 5", logo: html5 },
+    { name: "Tailwind CSS", logo: tailwindcss },
+  ];
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-8 text-white relative overflow-hidden">
@@ -18,7 +32,7 @@ export default function Home() {
         Hi, I’m{" "}
         <span
           onClick={() => setIsOpen(true)}
-          className="text-indigo-400 cursor-pointer hover:underline"
+          className="text-indigo-300 cursor-pointer hover:underline"
         >
           Jonathan Hopi Pranata!
         </span>
@@ -33,24 +47,29 @@ export default function Home() {
       <div className="mt-10 w-full max-w-6xl p-8 rounded-2xl bg-white/10 backdrop-blur-md shadow-2xl border border-white/20">
         {/* Skills Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-indigo-400">Skills</h2>
+          <h2 className="text-3xl font-bold mb-6 text-indigo-300">Skills</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {["Figma", "MySQL", "React", "Python", "Tailwind CSS"].map(
-              (skill) => (
-                <div
-                  key={skill}
-                  className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm"
-                >
-                  <p className="font-semibold text-white">{skill}</p>
-                </div>
-              )
-            )}
+            {skills.map((skill) => (
+              <div
+                key={skill.name}
+                className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm flex flex-col items-center"
+              >
+                <Image
+                  src={skill.logo.src}
+                  alt={skill.name}
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 mb-2 object-contain"
+                />
+                <p className="font-semibold text-white">{skill.name}</p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Expertise Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-indigo-400">Expertise</h2>
+          <h2 className="text-3xl font-bold mb-6 text-indigo-300">Expertise</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {["Machine Learning", "UI/UX Design", "Computer Networks"].map(
               (exp) => (
@@ -67,7 +86,7 @@ export default function Home() {
 
         {/* Projects Section */}
         <section>
-          <h2 className="text-3xl font-bold mb-6 text-indigo-400">Projects</h2>
+          <h2 className="text-3xl font-bold mb-6 text-indigo-300">Projects</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ProjectCard
               title="NLP Text Classifier"
@@ -116,11 +135,14 @@ export default function Home() {
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4 text-indigo-400 text-center">
+            <h2 className="text-2xl font-bold mb-4 text-indigo-300 text-center">
               About Me
             </h2>
             <p className="text-white/90 mb-2">
               <strong>Name:</strong> Jonathan Hopi Pranata
+            </p>
+            <p className="text-white/90 mb-2">
+              <strong>Interest:</strong> UI/UX Design, Machine Learning
             </p>
             <p className="text-white/90 mb-2">
               <strong>Program:</strong> Computer Science Master Track
