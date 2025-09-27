@@ -10,7 +10,6 @@ import mysql from "../../public/mysql.png";
 import python from "../../public/python.png";
 import html5 from "../../public/html5.png";
 import tailwindcss from "../../public/tailwindcss.png";
-import ".global.css";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
