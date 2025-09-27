@@ -118,7 +118,7 @@ export default function Home() {
             </button>
             <div className="flex justify-center mb-6">
               <div className="bg-white p-2 pb-6 rounded-lg shadow-lg">
-                <img
+                <Image
                   src={profilePic.src}
                   alt="Jonathan Hopi Pranata"
                   className="w-32 h-32 rounded-md shadow-lg object-cover object-[50%_10%]"
