@@ -3,7 +3,6 @@
 import ProjectCard from "./components/ProjectCard";
 import Greeting from "./components/GreetingAnimation";
 import { useState } from "react";
-import { useEffect } from "react";
 import Image from "next/image";
 import profilePic from "../../public/Profile.jpg";
 import figma from "../../public/figma.png";
@@ -13,10 +12,6 @@ import html5 from "../../public/html5.png";
 import tailwindcss from "../../public/tailwindcss.png";
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Jonathan Hopi Pranata | Portfolio";
-  }, []);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const skills = [
