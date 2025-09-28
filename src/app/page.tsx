@@ -3,6 +3,7 @@
 import ProjectCard from "./components/ProjectCard";
 import Greeting from "./components/GreetingAnimation";
 import { useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import profilePic from "../../public/Profile.jpg";
 import figma from "../../public/figma.png";
@@ -12,6 +13,10 @@ import html5 from "../../public/html5.png";
 import tailwindcss from "../../public/tailwindcss.png";
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Jonathan Hopi Pranata | Portfolio";
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const skills = [
@@ -66,16 +71,20 @@ export default function Home() {
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6 text-indigo-300">Expertise</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {["Machine Learning", "UI/UX Design", "Computer Networks"].map(
-              (exp) => (
-                <div
-                  key={exp}
-                  className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm"
-                >
-                  <p className="font-semibold text-white">{exp}</p>
-                </div>
-              )
-            )}
+            {[
+              "UI/UX Design",
+              "Database",
+              "Data Analysis",
+              "Machine Learning",
+              "Computer Networks",
+            ].map((exp) => (
+              <div
+                key={exp}
+                className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm"
+              >
+                <p className="font-semibold text-white">{exp}</p>
+              </div>
+            ))}
           </div>
         </section>
 
