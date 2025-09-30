@@ -93,12 +93,12 @@ export default function Home() {
             />
             <ProjectCard
               title="DeepPlan"
-              description="An application for predicting an estimate of a construction project that uses Machine Learning model to predict the estimated cost, time, etc"
+              description="An application for predicting an estimate of a construction project that uses Machine Learning model to predict the estimated cost, time, etc."
               link="https://github.com/KepinTheNoob/DeepPlan"
             />
             <ProjectCard
               title="Supreme Court Judgement Classifcation"
-              description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact"
+              description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact."
               link="https://github.com/dheovanwa/Supreme-court-judgement-classification"
             />
           </div>
