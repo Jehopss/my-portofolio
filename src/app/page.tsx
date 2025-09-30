@@ -87,19 +87,19 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-6 text-indigo-300">Projects</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ProjectCard
-              title="NLP Text Classifier"
-              description="A machine learning model that classifies text using Python and scikit-learn."
-              link="https://github.com/YOUR-USERNAME/nlp-classifier"
+              title="Serenity"
+              description="A platform for consulting psychology problems."
+              link="https://github.com/dheovanwa/Serenity"
             />
             <ProjectCard
-              title="Next.js Portfolio"
-              description="My personal portfolio site built with Next.js and Tailwind CSS."
-              link="https://github.com/YOUR-USERNAME/my-portfolio"
+              title="DeepPlan"
+              description="An application for predicting an estimate of a construction project that uses Machine Learning model to predict the estimated cost, time, etc"
+              link="https://github.com/KepinTheNoob/DeepPlan"
             />
             <ProjectCard
-              title="Image Processing App"
-              description="A computer vision project using OpenCV and Python."
-              link="https://github.com/YOUR-USERNAME/image-processing-app"
+              title="Supreme Court Judgement Classifcation"
+              description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact"
+              link="https://github.com/dheovanwa/Supreme-court-judgement-classification"
             />
           </div>
         </section>
