@@ -103,6 +103,17 @@ export default function Home() {
             />
           </div>
         </section>
+        <section>
+          <h2 className="text-3xl font-bold mb-6 text-indigo-300">Contact</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <h3>Email: jonathan.pranata@binus.ac.id</h3>
+            <h3>Email: jonathanhopee@gmail.com</h3>
+            <h3>Phone: +6281298173899</h3>
+            <h3>
+              Github: <a href="https://github.com/Jehopss">Jehopss</a>
+            </h3>
+          </div>
+        </section>
       </div>
 
       {isOpen && (
