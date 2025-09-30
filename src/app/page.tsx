@@ -107,7 +107,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-3 mt-10 text-indigo-300">
             Contact
           </h2>
-          <div className="p-4 bg-white/10 rounded-xl shadow text-center backdrop-blur-sm">
+          <div className="p-4 bg-white/10 rounded-xl shadow backdrop-blur-sm">
             <h3>Email: jonathan.pranata@binus.ac.id</h3>
             <h3>Email: jonathanhopee@gmail.com</h3>
             <h3>Phone: +6281298173899</h3>
