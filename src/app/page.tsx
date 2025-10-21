@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import ProjectCard from "./components/ProjectCard";
-import profilePic from "../../public/Profile.jpg";
+import profilePic from "../../public/ProfileCompressed.jpg";
 import figma from "../../public/figma.png";
 import mysql from "../../public/mysql.png";
 import python from "../../public/python.png";
