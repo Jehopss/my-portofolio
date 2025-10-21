@@ -1,3 +1,4 @@
+// Ini buat deployment
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -5,3 +6,12 @@ const nextConfig = {
 }
 
 module.exports = nextConfig;
+
+
+// Ini buat dev
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   reactStrictMode: true,
+// };
+
+// module.exports = nextConfig;
