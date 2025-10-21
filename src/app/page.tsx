@@ -470,7 +470,7 @@ export default function Home() {
               />
               <ProjectCard
                 title="DeepPlan"
-                description="An application for predicting an estimate of a construction project that uses Machine Learning model..."
+                description="An application for predicting an estimate of a construction project that uses Machine Learning model."
                 link="https://github.com/KepinTheNoob/DeepPlan"
                 isDarkMode={isDarkMode}
               />
