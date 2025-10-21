@@ -35,8 +35,7 @@ export default function Home() {
                  ${
                    isDarkMode
                      ? "bg-gray-900 text-gray-300"
-                     : // [DIUBAH] Teks default sedikit lebih gelap
-                       "bg-gray-100 text-gray-800"
+                     : "bg-gray-100 text-gray-800"
                  }`}
     >
       <header
@@ -65,16 +64,12 @@ export default function Home() {
               </h1>
               <h2
                 className={`text-xl mb-6
-                           ${
-                             // [DIUBAH]
-                             isDarkMode ? "text-indigo-400" : "text-blue-700"
-                           }`}
+                           ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
               >
                 Computer Science Student (Master Track Program)
               </h2>
             </div>
 
-            {/* Tombol Toggle */}
             <div className="ml-4 -mt-2 md:mt-0 md:-mr-4">
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
@@ -82,8 +77,7 @@ export default function Home() {
                            ${
                              isDarkMode
                                ? "text-gray-400 hover:text-indigo-400"
-                               : // [DIUBAH]
-                                 "text-gray-600 hover:text-blue-700"
+                               : "text-gray-600 hover:text-blue-700"
                            }`}
                 aria-label="Toggle dark mode"
               >
@@ -131,8 +125,7 @@ export default function Home() {
                              ${
                                isDarkMode
                                  ? "text-gray-400 hover:text-indigo-300"
-                                 : // [DIUBAH]
-                                   "text-gray-600 hover:text-blue-700"
+                                 : "text-gray-600 hover:text-blue-700"
                              }`}
                 >
                   <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -148,8 +141,7 @@ export default function Home() {
                              ${
                                isDarkMode
                                  ? "text-gray-400 hover:text-indigo-300"
-                                 : // [DIUBAH]
-                                   "text-gray-600 hover:text-blue-700"
+                                 : "text-gray-600 hover:text-blue-700"
                              }`}
                 >
                   <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -165,8 +157,7 @@ export default function Home() {
                              ${
                                isDarkMode
                                  ? "text-gray-400 hover:text-indigo-300"
-                                 : // [DIUBAH]
-                                   "text-gray-600 hover:text-blue-700"
+                                 : "text-gray-600 hover:text-blue-700"
                              }`}
                 >
                   <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -182,8 +173,7 @@ export default function Home() {
                              ${
                                isDarkMode
                                  ? "text-gray-400 hover:text-indigo-300"
-                                 : // [DIUBAH]
-                                   "text-gray-600 hover:text-blue-700"
+                                 : "text-gray-600 hover:text-blue-700"
                              }`}
                 >
                   <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -258,8 +248,7 @@ export default function Home() {
                          ${
                            isDarkMode
                              ? "text-gray-400 hover:text-indigo-400"
-                             : // [DIUBAH]
-                               "text-gray-600 hover:text-blue-700"
+                             : "text-gray-600 hover:text-blue-700"
                          }`}
             >
               <svg
@@ -284,8 +273,7 @@ export default function Home() {
                          ${
                            isDarkMode
                              ? "text-gray-400 hover:text-indigo-400"
-                             : // [DIUBAH]
-                               "text-gray-600 hover:text-blue-700"
+                             : "text-gray-600 hover:text-blue-700"
                          }`}
             >
               <svg
@@ -307,19 +295,13 @@ export default function Home() {
           <section id="about" className="scroll-mt-16">
             <h2
               className={`text-3xl font-bold mb-6
-                         ${
-                           // [DIUBAH]
-                           isDarkMode ? "text-indigo-400" : "text-blue-700"
-                         }`}
+                         ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
             >
               About Me
             </h2>
             <div
               className={`space-y-4 text-lg
-                         ${
-                           // [DIUBAH]
-                           isDarkMode ? "text-gray-300" : "text-gray-800"
-                         }`}
+                         ${isDarkMode ? "text-gray-300" : "text-gray-800"}`}
             >
               <p>
                 Hi, I’m Jonathan! Currently a 5th-semester Computer Science
@@ -349,10 +331,7 @@ export default function Home() {
           <section id="education" className="scroll-mt-16">
             <h2
               className={`text-3xl font-bold mb-6
-                         ${
-                           // [DIUBAH]
-                           isDarkMode ? "text-indigo-400" : "text-blue-700"
-                         }`}
+                         ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
             >
               Education
             </h2>
@@ -372,28 +351,19 @@ export default function Home() {
               </h3>
               <p
                 className={`mb-1
-                           ${
-                             // [DIUBAH]
-                             isDarkMode ? "text-indigo-400" : "text-blue-700"
-                           }`}
+                           ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
               >
                 Computer Science (Master Track Program)
               </p>
               <p
                 className={`mt-3
-                           ${
-                             // [DIUBAH]
-                             isDarkMode ? "text-gray-400" : "text-gray-700"
-                           }`}
+                           ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}
               >
                 2022 - Present (5th Semester)
               </p>
               <p
                 className={`mt-3
-                           ${
-                             // [DIUBAH]
-                             isDarkMode ? "text-gray-400" : "text-gray-700"
-                           }`}
+                           ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}
               >
                 Relevant Courses: Data Structures, Algorithms, Database Systems,
                 Machine Learning, Computer Networks.
@@ -404,10 +374,7 @@ export default function Home() {
           <section id="skills" className="scroll-mt-16">
             <h2
               className={`text-3xl font-bold mb-6
-                         ${
-                           // [DIUBAH]
-                           isDarkMode ? "text-indigo-400" : "text-blue-700"
-                         }`}
+                         ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
             >
               Skills & Expertise
             </h2>
@@ -426,8 +393,7 @@ export default function Home() {
                              ${
                                isDarkMode
                                  ? "bg-gray-800 hover:bg-gray-700/70 border border-gray-700 hover:border-indigo-500"
-                                 : // [DIUBAH]
-                                   "bg-white shadow-sm hover:bg-gray-50 border border-gray-200 hover:border-blue-500 hover:shadow-md"
+                                 : "bg-white shadow-sm hover:bg-gray-50 border border-gray-200 hover:border-blue-500 hover:shadow-md"
                              }`}
                 >
                   <Image
@@ -461,8 +427,7 @@ export default function Home() {
                              ${
                                isDarkMode
                                  ? "bg-gray-800 hover:bg-gray-700/70 border border-gray-700 hover:border-indigo-500"
-                                 : // [DIUBAH]
-                                   "bg-white hover:bg-gray-50 border border-gray-200 hover:border-blue-500"
+                                 : "bg-white hover:bg-gray-50 border border-gray-200 hover:border-blue-500"
                              }`}
                 >
                   <p
@@ -479,10 +444,7 @@ export default function Home() {
           <section id="projects" className="scroll-mt-16">
             <h2
               className={`text-3xl font-bold mb-6
-                         ${
-                           // [DIUBAH]
-                           isDarkMode ? "text-indigo-400" : "text-blue-700"
-                         }`}
+                         ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
             >
               Projects
             </h2>

@@ -21,8 +21,7 @@ const ProjectCard = ({
                ${
                  isDarkMode
                    ? "bg-gray-800 hover:bg-gray-700/70 border border-gray-700 hover:border-indigo-500"
-                   : // [DIUBAH]
-                     "bg-white hover:bg-gray-50 border border-gray-200 hover:border-blue-500"
+                   : "bg-white hover:bg-gray-50 border border-gray-200 hover:border-blue-500"
                }`}
   >
     <div>
@@ -31,18 +30,14 @@ const ProjectCard = ({
                    ${
                      isDarkMode
                        ? "text-white group-hover:text-indigo-400"
-                       : // [DIUBAH]
-                         "text-gray-900 group-hover:text-blue-700"
+                       : "text-gray-900 group-hover:text-blue-700"
                    }`}
       >
         {title}
       </h3>
       <p
         className={`mb-4
-                   ${
-                     // [DIUBAH]
-                     isDarkMode ? "text-gray-400" : "text-gray-700"
-                   }`}
+                   ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}
       >
         {description}
       </p>
@@ -50,10 +45,7 @@ const ProjectCard = ({
 
     <span
       className={`text-sm font-bold opacity-80 group-hover:opacity-100
-                 ${
-                   // [DIUBAH]
-                   isDarkMode ? "text-indigo-400" : "text-blue-700"
-                 }`}
+                 ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
     >
       See Project &rarr;
     </span>
