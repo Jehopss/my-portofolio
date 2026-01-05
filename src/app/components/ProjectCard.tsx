@@ -1,5 +1,7 @@
 "use client";
 
+import { Github, Figma } from "lucide-react";
+
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -35,22 +37,27 @@ const ProjectCard = ({
         {title}
       </h3>
       <p
-        className={`mb-4
+        className={`mb-4 text-sm
                     ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}
       >
         {description}
       </p>
     </div>
 
-    <div className="flex flex-wrap gap-4 mt-auto">
+    <div className="flex flex-wrap gap-3 mt-auto">
       <a
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className={`text-sm font-bold opacity-80 hover:opacity-100 transition-opacity flex items-center
-                  ${isDarkMode ? "text-indigo-400" : "text-blue-700"}`}
+        title="View Code on GitHub"
+        className={`p-2 rounded-full border-2 transition-all duration-300 hover:scale-110
+                  ${
+                    isDarkMode
+                      ? "border-gray-700 text-indigo-400 hover:border-indigo-400 hover:bg-indigo-400/10"
+                      : "border-gray-200 text-blue-700 hover:border-blue-700 hover:bg-blue-50"
+                  }`}
       >
-        See Project &rarr;
+        <Github size={20} />
       </a>
 
       {figmaLink && (
@@ -58,10 +65,15 @@ const ProjectCard = ({
           href={figmaLink}
           target="_blank"
           rel="noopener noreferrer"
-          className={`text-sm font-bold opacity-80 hover:opacity-100 transition-opacity flex items-center
-                    ${isDarkMode ? "text-pink-400" : "text-pink-600"}`}
+          title="View Figma Design"
+          className={`p-2 rounded-full border-2 transition-all duration-300 hover:scale-110
+                    ${
+                      isDarkMode
+                        ? "border-gray-700 text-pink-400 hover:border-pink-400 hover:bg-pink-400/10"
+                        : "border-gray-200 text-pink-600 hover:border-pink-600 hover:bg-pink-50"
+                    }`}
         >
-          Figma Design &rarr;
+          <Figma size={20} />
         </a>
       )}
     </div>
