@@ -50,7 +50,7 @@ const ProjectCard = ({
         target="_blank"
         rel="noopener noreferrer"
         title="View Code on GitHub"
-        className={`p-2 rounded-full border-2 transition-all duration-300 hover:scale-110
+        className={`flex items-center justify-center w-10 h-10 rounded-lg border-2 transition-all duration-300 hover:scale-105
                   ${
                     isDarkMode
                       ? "border-gray-700 text-indigo-400 hover:border-indigo-400 hover:bg-indigo-400/10"
@@ -66,7 +66,7 @@ const ProjectCard = ({
           target="_blank"
           rel="noopener noreferrer"
           title="View Figma Design"
-          className={`p-2 rounded-full border-2 transition-all duration-300 hover:scale-110
+          className={`flex items-center justify-center w-10 h-10 rounded-lg border-2 transition-all duration-300 hover:scale-105
                     ${
                       isDarkMode
                         ? "border-gray-700 text-pink-400 hover:border-pink-400 hover:bg-pink-400/10"
