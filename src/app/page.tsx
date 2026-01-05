@@ -94,6 +94,7 @@ export default function Home() {
             )}
           </button>
         </div>
+
         <div>
           <div className="mb-6">
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
@@ -291,6 +292,8 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      {/* Konten Kanan (Tidak ada perubahan di sini) */}
       <div className="md:w-3/5 lg:w-2/3 md:h-screen md:overflow-y-auto p-8 md:p-16">
         <div className="max-w-3xl mx-auto space-y-20">
           <section id="about" className="scroll-mt-16">
@@ -457,12 +460,14 @@ export default function Home() {
                 title="Serenity"
                 description="A platform for consulting psychology problems."
                 link="https://github.com/dheovanwa/Serenity"
+                figmaLink="https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1"
                 isDarkMode={isDarkMode}
               />
               <ProjectCard
                 title="DeepPlan"
                 description="An application for predicting an estimate of a construction project that uses Machine Learning model."
                 link="https://github.com/KepinTheNoob/DeepPlan"
+                figmaLink="https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1"
                 isDarkMode={isDarkMode}
               />
               <ProjectCard
@@ -475,6 +480,7 @@ export default function Home() {
                 title="Finwise"
                 description="A Personal Finance Management Application that is used to manage your personal finance."
                 link="https://github.com/KepinTheNoob/Finwise"
+                figmaLink="https://www.figma.com/design/Wd2WWWV3JmNr2bRtlchsj2/Finwise?node-id=0-1&t=vxIEvOYqt8LG0HZf-1"
                 isDarkMode={isDarkMode}
               />
             </div>
