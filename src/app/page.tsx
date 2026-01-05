@@ -25,6 +25,7 @@ const expertiseAreas = [
   "Machine Learning",
   "Computer Vision",
   "Natural Language Processing",
+  "Web Programming",
   "Data Mining",
   "Computer Networks",
 ];
@@ -42,7 +43,6 @@ export default function Home() {
                  }`}
     >
       <header
-        // 1. TAMBAHKAN 'relative' DI SINI
         className={`md:w-2/5 lg:w-1/3 md:h-screen md:sticky md:top-0 p-8 md:p-12 flex flex-col justify-between border-b md:border-b-0 md:border-r relative
                    ${
                      isDarkMode
@@ -50,8 +50,6 @@ export default function Home() {
                        : "bg-white border-gray-200"
                    }`}
       >
-        {/* 2. PINDAHKAN TOMBOL KE SINI DENGAN POSISI ABSOLUTE */}
-        {/* Tombol ini sekarang ada di luar alur, di pojok kanan atas */}
         <div className="absolute top-0 right-0 p-8 md:p-12">
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
@@ -96,10 +94,7 @@ export default function Home() {
             )}
           </button>
         </div>
-
-        {/* Isi header lainnya */}
         <div>
-          {/* 3. HAPUS 'flex justify-between items-start' DARI SINI */}
           <div className="mb-6">
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
               <Image
@@ -122,8 +117,6 @@ export default function Home() {
                 Computer Science Student (Master Track Program)
               </h2>
             </div>
-
-            {/* Tombol toggle SUDAH DIHAPUS dari sini */}
           </div>
 
           <nav className="hidden md:block">
@@ -298,8 +291,6 @@ export default function Home() {
           </div>
         </div>
       </header>
-
-      {/* Konten Kanan (Tidak ada perubahan di sini) */}
       <div className="md:w-3/5 lg:w-2/3 md:h-screen md:overflow-y-auto p-8 md:p-16">
         <div className="max-w-3xl mx-auto space-y-20">
           <section id="about" className="scroll-mt-16">
@@ -478,6 +469,12 @@ export default function Home() {
                 title="Supreme Court Judgement Classifcation"
                 description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact."
                 link="https://github.com/dheovanwa/Supreme-court-judgement-classification"
+                isDarkMode={isDarkMode}
+              />
+              <ProjectCard
+                title="Finwise"
+                description="A Personal Finance Management Application that is used to manage your personal finance."
+                link="https://github.com/KepinTheNoob/Finwise"
                 isDarkMode={isDarkMode}
               />
             </div>
