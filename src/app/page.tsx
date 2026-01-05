@@ -479,7 +479,7 @@ export default function Home() {
               />
               <ProjectCard
                 title="NoFake"
-                description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact."
+                description="A Machine Learning model that is used to determine a news is fake or fact"
                 link="https://github.com/XQVWMM/NoFake"
                 figmaLink="https://www.figma.com/design/cc5QuRPuLykKp3jindjRlE/NoFake?node-id=35-277&t=oliso9qhFY7kycGQ-1"
                 isDarkMode={isDarkMode}
