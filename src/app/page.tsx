@@ -471,16 +471,23 @@ export default function Home() {
                 isDarkMode={isDarkMode}
               />
               <ProjectCard
-                title="Supreme Court Judgement Classifcation"
-                description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact."
-                link="https://github.com/dheovanwa/Supreme-court-judgement-classification"
-                isDarkMode={isDarkMode}
-              />
-              <ProjectCard
                 title="Finwise"
                 description="A Personal Finance Management Application that is used to manage your personal finance."
                 link="https://github.com/KepinTheNoob/Finwise"
                 figmaLink="https://www.figma.com/design/Wd2WWWV3JmNr2bRtlchsj2/Finwise?node-id=0-1&t=vxIEvOYqt8LG0HZf-1"
+                isDarkMode={isDarkMode}
+              />
+              <ProjectCard
+                title="NoFake"
+                description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact."
+                link="https://github.com/XQVWMM/NoFake"
+                figmaLink="https://www.figma.com/design/cc5QuRPuLykKp3jindjRlE/NoFake?node-id=35-277&t=oliso9qhFY7kycGQ-1"
+                isDarkMode={isDarkMode}
+              />
+              <ProjectCard
+                title="Supreme Court Judgement Classifcation"
+                description="A Machine Learning model that is used to classify whether if a person is guilty or not based on the fact."
+                link="https://github.com/dheovanwa/Supreme-court-judgement-classification"
                 isDarkMode={isDarkMode}
               />
             </div>
