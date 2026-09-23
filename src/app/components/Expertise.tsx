@@ -6,8 +6,8 @@ export default function Expertise() {
     <div className="mt-16 md:mt-20">
       <Reveal>
         <div className="flex items-baseline justify-between">
-          <h3 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">Areas of expertise</h3>
-          <span className="font-mono text-xs text-muted">{String(expertise.length).padStart(2, "0")}</span>
+          <h3 className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Areas of expertise</h3>
+          <span className="text-xs text-muted tabular-nums">{String(expertise.length).padStart(2, "0")}</span>
         </div>
       </Reveal>
       <StaggerList
@@ -23,7 +23,7 @@ export default function Expertise() {
             <span className="text-[0.95rem] text-fg transition-transform duration-500 ease-out-expo group-hover:translate-x-1">
               {name}
             </span>
-            <span className="ml-auto pl-3 font-mono text-[0.7rem] text-subtle transition-colors duration-300 group-hover:text-accent">
+            <span className="ml-auto pl-3 text-xs text-subtle tabular-nums transition-colors duration-300 group-hover:text-accent">
               {String(i + 1).padStart(2, "0")}
             </span>
           </div>

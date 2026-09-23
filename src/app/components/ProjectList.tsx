@@ -64,7 +64,7 @@ export default function ProjectList() {
             }}
           />
           <div className="relative grid grid-cols-[2.25rem_1fr] gap-x-3 py-7 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6 md:py-8">
-            <span className="pt-1.5 font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+            <span className="pt-1.5 text-sm text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
 
             <div>
               <h3 className="text-xl font-medium tracking-tight text-balance text-fg md:text-2xl">

@@ -106,7 +106,7 @@ export default function Header() {
             <a
               href="#top"
               onClick={open ? goTo("top") : undefined}
-              className="font-serif text-[1.65rem] leading-none tracking-tight text-fg"
+              className="text-xl leading-none font-semibold tracking-[-0.03em] text-fg"
               aria-label="Jonathan Hopi Pranata — back to top"
             >
               Jonathan<span className="text-accent">.</span>
@@ -196,11 +196,11 @@ export default function Header() {
                       animate={{ y: "0%" }}
                       exit={{ y: "105%" }}
                       transition={{ duration: 0.7, ease: EASE, delay: 0.12 + index * 0.06 }}
-                      className={`flex items-baseline gap-4 py-1 font-serif text-5xl leading-tight ${
+                      className={`flex items-baseline gap-4 py-1 text-[2.6rem] leading-tight font-medium tracking-[-0.04em] ${
                         active === item.id ? "text-accent" : "text-fg"
                       }`}
                     >
-                      <span className="font-mono text-xs text-muted">0{index + 1}</span>
+                      <span className="text-xs tracking-normal text-muted tabular-nums">0{index + 1}</span>
                       {item.label}
                     </motion.a>
                   </li>

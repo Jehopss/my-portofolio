@@ -89,7 +89,7 @@ export default function SkillGrid() {
   return (
     <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h3 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">Technologies</h3>
+        <h3 className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Technologies</h3>
         <div
           role="group"
           aria-label="Filter technologies"
@@ -116,7 +116,7 @@ export default function SkillGrid() {
                 )}
                 <span className="relative">
                   {option}
-                  <span className="ml-1 font-mono text-[0.65rem] opacity-60">{countFor(option)}</span>
+                  <span className="ml-1 text-[0.7rem] tabular-nums opacity-60">{countFor(option)}</span>
                 </span>
               </button>
             );

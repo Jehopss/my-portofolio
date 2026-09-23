@@ -90,7 +90,7 @@ export default function ContactList() {
             variants={fadeUp}
             className="flex flex-col gap-3 border-b border-line py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
           >
-            <span className="font-mono text-xs tracking-[0.2em] text-muted uppercase">{contact.label}</span>
+            <span className="text-xs font-medium tracking-[0.16em] text-muted uppercase">{contact.label}</span>
             <span className="flex items-center justify-between gap-4 sm:justify-end">
               <a href={contact.href} className="link-draw text-lg break-all text-fg sm:text-xl">
                 {contact.value}

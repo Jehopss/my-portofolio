@@ -125,10 +125,10 @@ export default function Hero() {
           </motion.div>
 
           <motion.div {...intro(0.25)}>
-            <Greeting className="font-serif text-2xl text-muted italic md:text-[1.75rem]" />
+            <Greeting className="text-xl text-muted md:text-2xl" />
           </motion.div>
 
-          <h1 className="mt-3 font-serif text-[clamp(3.25rem,8.6vw,7rem)] leading-[0.98] tracking-[-0.02em] text-balance text-fg">
+          <h1 className="mt-4 text-[clamp(2.9rem,6.8vw,5.9rem)] leading-[1.02] font-medium tracking-[-0.045em] text-balance text-fg">
             {words.map((word, i) => (
               <Fragment key={word}>
                 {i > 0 && " "}
@@ -201,7 +201,7 @@ export default function Hero() {
         aria-label="Scroll to About"
         className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-muted md:flex"
       >
-        <span className="font-mono text-[0.65rem] tracking-[0.3em] uppercase">Scroll</span>
+        <span className="text-[0.7rem] font-medium tracking-[0.3em] uppercase">Scroll</span>
         <span className="relative h-12 w-px overflow-hidden bg-line">
           <span className="scroll-cue absolute inset-0 bg-fg/70" />
         </span>

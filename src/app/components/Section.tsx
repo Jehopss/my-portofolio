@@ -4,10 +4,10 @@ import { Reveal } from "./motion";
 function Heading({ id, index, title }: { id: string; index: string; title: string }) {
   return (
     <>
-      <p className="font-mono text-xs tracking-[0.2em] text-accent">{index}</p>
+      <p className="text-sm font-medium text-accent tabular-nums">{index}</p>
       <h2
         id={`${id}-title`}
-        className="mt-3 font-serif text-[2.75rem] leading-none tracking-[-0.01em] text-fg md:text-[3.25rem]"
+        className="mt-3 text-[2.5rem] leading-[1.05] font-medium tracking-[-0.04em] text-fg md:text-5xl"
       >
         {title}
       </h2>

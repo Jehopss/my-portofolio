@@ -10,17 +10,17 @@ export default function Education() {
           <h3 className="text-2xl font-medium tracking-tight text-fg md:text-[1.75rem]">
             {education.school}
           </h3>
-          <p className="font-mono text-sm text-muted">{education.period}</p>
+          <p className="text-sm text-muted tabular-nums">{education.period}</p>
         </div>
         <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
           <p className="text-lg text-accent">{education.degree}</p>
-          <p className="font-mono text-sm text-muted">{education.status}</p>
+          <p className="text-sm text-muted tabular-nums">{education.status}</p>
         </div>
       </Reveal>
 
       <div className="mt-12 border-t border-line pt-8">
         <Reveal>
-          <h4 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">Relevant courses</h4>
+          <h4 className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Relevant courses</h4>
         </Reveal>
         <StaggerList className="mt-5 flex flex-wrap gap-2" step={0.035}>
           {education.courses.map((course) => (

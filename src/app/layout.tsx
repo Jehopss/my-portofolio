@@ -1,27 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
-import { GeistMono } from "geist/font/mono";
 
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Providers from "./components/Providers";
 
-// Body / UI sans: Outfit, a clean geometric sans (variable 100–900, SIL OFL).
+// The one typeface for the whole site: Outfit, a clean geometric sans
+// (variable 100–900, SIL OFL). Self-hosted, so builds never depend on Google Fonts.
 const outfit = localFont({
   src: "./fonts/Outfit-Variable.woff2",
   weight: "100 900",
   variable: "--font-outfit",
-  display: "swap",
-});
-
-// Display serif for headings. Self-hosted (SIL OFL), so builds never depend on Google Fonts.
-const instrumentSerif = localFont({
-  src: [
-    { path: "./fonts/InstrumentSerif-Regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/InstrumentSerif-Italic.woff2", weight: "400", style: "italic" },
-  ],
-  variable: "--font-instrument-serif",
   display: "swap",
 });
 
@@ -47,7 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${outfit.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
+      className={outfit.variable}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
