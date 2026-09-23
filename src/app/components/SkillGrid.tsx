@@ -103,7 +103,7 @@ export default function SkillGrid() {
                 type="button"
                 aria-pressed={selected}
                 onClick={() => setFilter(option)}
-                className={`relative rounded-full px-3 py-1.5 text-sm transition-colors duration-300 sm:px-3.5 ${
+                className={`relative rounded-full px-2.5 py-1.5 text-sm transition-colors duration-300 min-[380px]:px-3 sm:px-3.5 ${
                   selected ? "text-bg" : "text-muted hover:text-fg"
                 }`}
               >

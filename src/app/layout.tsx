@@ -2,11 +2,18 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Providers from "./components/Providers";
+
+// Body / UI sans: Outfit, a clean geometric sans (variable 100–900, SIL OFL).
+const outfit = localFont({
+  src: "./fonts/Outfit-Variable.woff2",
+  weight: "100 900",
+  variable: "--font-outfit",
+  display: "swap",
+});
 
 // Display serif for headings. Self-hosted (SIL OFL), so builds never depend on Google Fonts.
 const instrumentSerif = localFont({
@@ -40,7 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
+      className={`${outfit.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

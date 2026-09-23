@@ -65,7 +65,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-chip: var(--chip);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, "Times New Roman", serif;
 
@@ -88,8 +88,7 @@
   body {
     background: var(--bg);
     color: var(--fg);
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-    font-feature-settings: "ss01", "cv11";
+    font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;

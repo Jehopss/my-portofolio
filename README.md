@@ -34,7 +34,7 @@ src/app/
 ├─ data/portfolio.ts   # ← all content
 ├─ components/         # Header, Hero, Skills, Projects, Contact, …
 ├─ assets/             # profile photo + skill logos
-└─ fonts/              # Instrument Serif (SIL OFL), self-hosted
+└─ fonts/              # Outfit + Instrument Serif (SIL OFL), self-hosted
 ```
 
 Skill logos come from [Devicon](https://devicon.dev) (MIT), [Simple Icons](https://simpleicons.org)

@@ -170,20 +170,23 @@ export default function Hero() {
             >
               Get in touch
             </a>
-            <span aria-hidden className="mx-1 hidden h-6 w-px bg-line sm:block" />
-            {socials.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                title={label}
-                className="grid size-12 place-items-center rounded-full text-muted transition-colors duration-300 hover:bg-surface hover:text-fg"
-              >
-                <Icon aria-hidden className="size-5" strokeWidth={1.6} />
-              </a>
-            ))}
+            {/* Kept in one group so the icons always wrap together on narrow screens. */}
+            <div className="flex items-center gap-1">
+              <span aria-hidden className="mr-2 ml-1 hidden h-6 w-px bg-line sm:block" />
+              {socials.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="grid size-12 place-items-center rounded-full text-muted transition-colors duration-300 hover:bg-surface hover:text-fg"
+                >
+                  <Icon aria-hidden className="size-5" strokeWidth={1.6} />
+                </a>
+              ))}
+            </div>
           </motion.div>
         </div>
 
