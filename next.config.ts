@@ -3,6 +3,8 @@
 
 const nextConfig = {
   output: "export",
+  // Static export can't use the image optimizer; GitHub Pages serves images as-is.
+  images: { unoptimized: true },
 }
 
 module.exports = nextConfig;

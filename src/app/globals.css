@@ -1,44 +1,245 @@
 @import "tailwindcss";
 
+/* Dark mode is driven by <html data-theme="dark">, set before paint by the
+   inline script in layout.tsx and toggled by ThemeToggle. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/*  Warm "paper" neutrals + a calm teal accent that echoes the photo.  */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --bg: #f4f3ee;
+  --surface: #faf9f6;
+  --surface-2: #ecebe5;
+  --fg: #202321;
+  --muted: #5b605c;
+  --subtle: #696e6a;
+  --line: #e1e0d8;
+  --line-strong: #cbcac1;
+  --accent: #2a6a73;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(42 106 115 / 0.09);
+  --chip: #ffffff;
+  --glow: rgb(20 150 165 / 0.13);
+  --elevation: 0 1px 2px rgb(32 35 33 / 0.04), 0 12px 32px -18px rgb(32 35 33 / 0.18);
+  --grain-opacity: 0.035;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #101312;
+  --surface: #161a19;
+  --surface-2: #1d2221;
+  --fg: #e2e5e0;
+  --muted: #a3a9a4;
+  --subtle: #7c837e;
+  --line: #242a28;
+  --line-strong: #343b38;
+  --accent: #7cc3c8;
+  --accent-fg: #0c1211;
+  --accent-soft: rgb(124 195 200 / 0.1);
+  --chip: #e4e7e1;
+  --glow: rgb(124 195 200 / 0.12);
+  --elevation: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -20px rgb(0 0 0 / 0.7);
+  --grain-opacity: 0.05;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-chip: var(--chip);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, "Times New Roman", serif;
+
+  --ease-out-expo: var(--ease-expo);
+  --ease-spring: var(--ease-bounce);
+
+  --shadow-soft: var(--elevation);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Soft paper grain — barely there, takes the digital glare off flat colour. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+@utility shell {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
 }
 
-@keyframes gradientMove {
+/* Underline that draws itself in from the left on hover. */
+@utility link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s var(--ease-expo);
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Theme toggle icons                                                 */
+/* ------------------------------------------------------------------ */
+.theme-icon {
+  transition:
+    transform 0.7s var(--ease-bounce),
+    opacity 0.35s ease;
+}
+:root:not([data-theme="dark"]) .theme-icon--sun,
+:root[data-theme="dark"] .theme-icon--moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+}
+
+/* Circular reveal when switching themes (View Transitions API). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html[data-switching] *,
+html[data-switching] *::before,
+html[data-switching] *::after {
+  transition: none !important;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ambient motion                                                     */
+/* ------------------------------------------------------------------ */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6%, -4%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-5%, 5%, 0) scale(0.96);
+  }
+}
+.aurora {
+  animation: drift 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee 60s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-cue {
   0% {
-    background-position: 0% 50%;
+    transform: scaleY(0);
+    transform-origin: top;
   }
-  50% {
-    background-position: 100% 50%;
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
   }
   100% {
-    background-position: 0% 50%;
+    transform: scaleY(0);
+    transform-origin: bottom;
   }
 }
+.scroll-cue {
+  animation: scroll-cue 2.4s var(--ease-expo) infinite;
+}
 
-.animate-gradientPalette {
-  background: linear-gradient(270deg, #141e30, #243b55, #3a6073, #16222a);
-  background-size: 600% 600%;
-  animation: gradientMove 60s ease infinite;
+/* Mobile menu open: freeze the page underneath. */
+html.menu-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .marquee-track,
+  .scroll-cue {
+    animation: none !important;
+  }
+  .theme-icon {
+    transition: opacity 0.2s ease;
+  }
 }
