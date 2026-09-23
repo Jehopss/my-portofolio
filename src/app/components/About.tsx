@@ -6,7 +6,7 @@ export default function About() {
     <Section id="about" index="01" title="About me">
       <Reveal>
         <p className="text-2xl leading-snug text-balance text-fg md:text-[2rem] md:leading-[1.25]">
-          Hi, I’m Jonathan! Currently a 5th-semester Computer Science student enrolled in the
+          Hi, I’m Jonathan! Currently a 7th-semester Computer Science student enrolled in the
           Master Track Program at <span className="text-accent">BINUS University</span>.
         </p>
       </Reveal>

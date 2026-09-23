@@ -81,9 +81,9 @@ export const contacts = [
   },
   {
     label: "Phone",
-    value: "+62 812-9817-3899",
-    href: "tel:+6281298173899",
-    copy: "+6281298173899",
+    value: "+62 819-7773-7879",
+    href: "tel:+6281977737879",
+    copy: "+6281977737879",
   },
 ];
 
@@ -134,7 +134,7 @@ export const education = {
   school: "BINUS University",
   degree: "Computer Science (Master Track Program)",
   period: "2023 — Present",
-  status: "5th Semester",
+  status: "7th Semester",
   courses: [
     "Human Computer Interaction",
     "Machine Learning",
