@@ -149,8 +149,8 @@ export const education = {
     "Machine Learning",
     "Computer Vision",
     "Natural Language Processing",
-    "Risk Management & Audit"
-    "Intelligenet Internet of Things"
+    "Risk Management & Audit",
+    "Intelligenet Internet of Things",
   ],
 };
 
