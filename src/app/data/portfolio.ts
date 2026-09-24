@@ -136,17 +136,21 @@ export const education = {
   period: "2023 — Present",
   status: "7th Semester",
   courses: [
+    "Data Structures",
     "Human Computer Interaction",
+    "Database Technology",
+    "Artificial Intelligence",
+    "Computer Networks",
+    "Computational Physics",
+    "Object Oriented Programming",
+    "Data Mining",
+    "Software Engineering",
+    "Introduction to Cloud Infrastructure",
     "Machine Learning",
     "Computer Vision",
     "Natural Language Processing",
-    "Data Mining",
-    "Software Engineering",
-    "Artificial Intelligence",
-    "Database Technology",
-    "Introduction to Cloud Infrastructure",
-    "Data Structures",
-    "Object Oriented Programming",
+    "Risk Management & Audit"
+    "Intelligenet Internet of Things"
   ],
 };
 
