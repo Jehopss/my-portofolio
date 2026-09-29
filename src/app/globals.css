@@ -6,29 +6,32 @@
 
 /* ------------------------------------------------------------------ */
 /*  Design tokens                                                      */
-/*  Cool mineral neutrals, each tinted slightly toward the teal accent */
-/*  so the greys and the accent read as one palette.                   */
+/*  Palette: coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7             */
+/*  Platinum is the page, Indigo dye the ink, Lapis the accent,        */
+/*  Cerulean the face-detection overlay and Sky the soft highlight.    */
+/*  Dark mode flips it: indigo ground, platinum ink, sky accent.       */
 /* ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
 
-  --bg: #f3f5f4;
-  --surface: #fafbfb;
-  --surface-2: #e9eeec;
-  --fg: #1b2322;
-  --muted: #55605e;
-  --subtle: #66716f;
-  --line: #dde4e2;
-  --line-strong: #c5cfcc;
-  --accent: #2a6a73;
+  --bg: #d9dcd6;
+  --surface: #eef0ec;
+  --surface-2: #cfd3cc;
+  --fg: #16425b;
+  --muted: #4a6272;
+  --subtle: #4a6272;
+  --line: #c6ccc5;
+  --line-strong: #aeb8b4;
+  --accent: #2f6690;
   --accent-fg: #ffffff;
-  --accent-soft: rgb(42 106 115 / 0.09);
+  --accent-soft: rgb(129 195 215 / 0.3);
+  --highlight: #81c3d7;
   --chip: #ffffff;
-  --elevation: 0 1px 2px rgb(27 35 34 / 0.04), 0 18px 40px -24px rgb(27 35 34 / 0.28);
+  --elevation: 0 1px 2px rgb(22 66 91 / 0.06), 0 18px 40px -24px rgb(22 66 91 / 0.35);
 
   /* Face-detection overlay on the portrait. The photo has the same white
      backdrop in both themes, so this stays one colour in both. */
-  --detect: #0b7c86;
+  --detect: #3a7ca5;
   --detect-fg: #ffffff;
 
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,18 +41,19 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #0f1413;
-  --surface: #151b1a;
-  --surface-2: #1c2322;
-  --fg: #e1e7e5;
-  --muted: #a1aba8;
-  --subtle: #7d8885;
-  --line: #232b29;
-  --line-strong: #33403c;
-  --accent: #7cc3c8;
-  --accent-fg: #0c1211;
-  --accent-soft: rgb(124 195 200 / 0.1);
-  --chip: #e4e9e7;
+  --bg: #0a1b25;
+  --surface: #0f2a3a;
+  --surface-2: #14344a;
+  --fg: #d9dcd6;
+  --muted: #97abb4;
+  --subtle: #7f96a1;
+  --line: #1c3b4e;
+  --line-strong: #2c5064;
+  --accent: #81c3d7;
+  --accent-fg: #16425b;
+  --accent-soft: rgb(129 195 215 / 0.12);
+  --highlight: #3a7ca5;
+  --chip: #d9dcd6;
   --elevation: 0 1px 2px rgb(0 0 0 / 0.3), 0 20px 44px -24px rgb(0 0 0 / 0.75);
 }
 
@@ -97,8 +101,8 @@
   }
 
   ::selection {
-    background: var(--accent);
-    color: var(--accent-fg);
+    background: var(--highlight);
+    color: var(--fg);
   }
 
   :focus-visible {

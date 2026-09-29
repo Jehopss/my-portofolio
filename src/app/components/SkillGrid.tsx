@@ -12,7 +12,7 @@ function SkillRow({ skill }: { skill: Skill }) {
           <Image src={skill.logo} alt="" className={`object-contain ${skill.wide ? "h-5 w-7" : "size-5"}`} />
         ) : Icon ? (
           // The chip stays light in both themes, so the fallback icon keeps the light-theme accent.
-          <Icon aria-hidden className="size-5 text-[#2a6a73]" strokeWidth={1.75} />
+          <Icon aria-hidden className="size-5 text-[#2f6690]" strokeWidth={1.75} />
         ) : null}
       </span>
       <span className="min-w-0">

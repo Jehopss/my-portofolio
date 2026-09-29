@@ -46,7 +46,7 @@ function CopyButton({ value, label }: { value: string; label: string }) {
       aria-label={`Copy ${label.toLowerCase()}`}
       className={`relative inline-flex h-8 min-w-[5.25rem] items-center justify-center overflow-hidden rounded-full border px-3 text-xs transition-colors duration-300 ${
         copied
-          ? "border-accent/40 bg-accent-soft text-accent"
+          ? "border-accent bg-accent text-accent-fg"
           : "border-line text-muted hover:border-line-strong hover:text-fg"
       }`}
     >

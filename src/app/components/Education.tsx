@@ -9,7 +9,7 @@ export default function Education() {
         <p className="text-sm text-muted tabular-nums">{education.period}</p>
       </div>
       <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-        <p className="text-lg text-accent">{education.degree}</p>
+        <p className="text-lg text-fg">{education.degree}</p>
         <p className="text-sm text-muted tabular-nums">{education.status}</p>
       </div>
 
