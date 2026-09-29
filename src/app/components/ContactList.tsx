@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 
-import { EASE, fadeUp, stagger } from "./motion";
+import { EASE } from "./motion";
 import { contacts, socials } from "../data/portfolio";
 
 async function copyText(text: string) {
@@ -77,17 +77,10 @@ function CopyButton({ value, label }: { value: string; label: string }) {
 export default function ContactList() {
   return (
     <>
-      <motion.ul
-        className="mt-12 border-t border-line"
-        variants={stagger(0.08)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <ul className="mt-12 border-t border-line">
         {contacts.map((contact) => (
-          <motion.li
+          <li
             key={contact.label}
-            variants={fadeUp}
             className="flex flex-col gap-3 border-b border-line py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
           >
             <span className="text-xs font-medium tracking-[0.16em] text-muted uppercase">{contact.label}</span>
@@ -97,19 +90,13 @@ export default function ContactList() {
               </a>
               <CopyButton value={contact.copy} label={contact.label} />
             </span>
-          </motion.li>
+          </li>
         ))}
-      </motion.ul>
+      </ul>
 
-      <motion.ul
-        className="mt-10 flex flex-wrap gap-3"
-        variants={stagger(0.08)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.5 }}
-      >
+      <ul className="mt-10 flex flex-wrap gap-3">
         {socials.map(({ label, href, icon: Icon }) => (
-          <motion.li key={label} variants={fadeUp}>
+          <li key={label}>
             <a
               href={href}
               target="_blank"
@@ -123,9 +110,9 @@ export default function ContactList() {
                 className="size-3.5 text-muted transition-[translate,color] duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
               />
             </a>
-          </motion.li>
+          </li>
         ))}
-      </motion.ul>
+      </ul>
     </>
   );
 }

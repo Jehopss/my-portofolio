@@ -23,14 +23,14 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f3ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#101312" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f5f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1413" },
   ],
 };
 
 // Runs before first paint: apply the saved theme (or the OS preference) so the
 // page never flashes the wrong colours.
-const themeScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t;document.addEventListener('DOMContentLoaded',function(){var c=t==='dark'?'#101312':'#f4f3ee';document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute('content',c)})})}catch(e){}})();`;
+const themeScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t;document.addEventListener('DOMContentLoaded',function(){var c=t==='dark'?'#0f1413':'#f3f5f4';document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute('content',c)})})}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

@@ -1,13 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-} from "framer-motion";
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
@@ -23,9 +17,7 @@ export default function Header() {
   const menuButton = useRef<HTMLButtonElement>(null);
   const firstLink = useRef<HTMLAnchorElement>(null);
 
-  // Thin reading-progress line along the very top edge.
-  const { scrollY, scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
+  const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 16));
 
   // Scroll-spy: highlight whichever section crosses the middle of the viewport.
@@ -84,17 +76,7 @@ export default function Header() {
 
   return (
     <>
-      <motion.header
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
-        className="fixed inset-x-0 top-0 z-50"
-      >
-        <motion.div
-          aria-hidden
-          style={{ scaleX: progress }}
-          className="absolute inset-x-0 top-0 z-10 h-[2px] origin-left bg-accent"
-        />
+      <header style={{ "--d": "0.15s" } as CSSProperties} className="intro fixed inset-x-0 top-0 z-50">
         <div
           className={`border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${
             scrolled || open
@@ -171,7 +153,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {open && (
@@ -196,11 +178,10 @@ export default function Header() {
                       animate={{ y: "0%" }}
                       exit={{ y: "105%" }}
                       transition={{ duration: 0.7, ease: EASE, delay: 0.12 + index * 0.06 }}
-                      className={`flex items-baseline gap-4 py-1 text-[2.6rem] leading-tight font-medium tracking-[-0.04em] ${
+                      className={`block py-1 text-[2.6rem] leading-tight font-medium tracking-[-0.04em] ${
                         active === item.id ? "text-accent" : "text-fg"
                       }`}
                     >
-                      <span className="text-xs tracking-normal text-muted tabular-nums">0{index + 1}</span>
                       {item.label}
                     </motion.a>
                   </li>

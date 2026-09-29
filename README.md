@@ -20,7 +20,7 @@ All text lives in **`src/app/data/portfolio.ts`** — profile, contacts, courses
 areas of expertise and projects. Add an item to the right array and the layout picks it up.
 
 - **New skill:** drop an SVG logo into `src/app/assets/skills/`, import it at the top of
-  `portfolio.ts`, then add `{ name, kind, category, logo, color }` to `skills`.
+  `portfolio.ts`, then add `{ name, kind, category, logo }` to `skills`.
   No official logo? Use a [Lucide](https://lucide.dev/icons) icon via `icon` instead.
 - **New project:** add `{ title, description, repo, figma? }` to `projects`.
 

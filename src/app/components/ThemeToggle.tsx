@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 
 type Theme = "light" | "dark";
 
-const THEME_COLORS: Record<Theme, string> = { light: "#f4f3ee", dark: "#101312" };
+const THEME_COLORS: Record<Theme, string> = { light: "#f3f5f4", dark: "#0f1413" };
 
 /**
  * Light/dark switch. Where the browser supports the View Transitions API the
