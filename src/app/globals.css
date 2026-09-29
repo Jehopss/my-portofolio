@@ -7,21 +7,22 @@
 /* ------------------------------------------------------------------ */
 /*  Design tokens                                                      */
 /*  Palette: coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7             */
-/*  Platinum is the page, Indigo dye the ink, Lapis the accent,        */
-/*  Cerulean the face-detection overlay and Sky the soft highlight.    */
+/*  Platinum tints the page and draws the rules, Indigo dye is the     */
+/*  ink, Lapis the accent, Cerulean the face-detection overlay and     */
+/*  Sky the soft highlight.                                            */
 /*  Dark mode flips it: indigo ground, platinum ink, sky accent.       */
 /* ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
 
-  --bg: #d9dcd6;
-  --surface: #eef0ec;
-  --surface-2: #cfd3cc;
+  --bg: #f3f4f1;
+  --surface: #fafbf9;
+  --surface-2: #e6e8e3;
   --fg: #16425b;
   --muted: #4a6272;
   --subtle: #4a6272;
-  --line: #c6ccc5;
-  --line-strong: #aeb8b4;
+  --line: #d9dcd6;
+  --line-strong: #c3cac6;
   --accent: #2f6690;
   --accent-fg: #ffffff;
   --accent-soft: rgb(129 195 215 / 0.3);
