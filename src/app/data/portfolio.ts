@@ -150,7 +150,7 @@ export const education = {
     "Computer Vision",
     "Natural Language Processing",
     "Risk Management & Audit",
-    "Intelligenet Internet of Things",
+    "Intelligent Internet of Things",
   ],
 };
 
@@ -169,33 +169,31 @@ export interface Skill {
   logo?: StaticImageData;
   /** Fallback line icon for tools without a usable official logo. */
   icon?: LucideIcon;
-  /** Brand tint used for the hover glow. Defaults to the site accent. */
-  color?: string;
   /** Landscape logos (wordmarks) get a wider box so they don't look tiny. */
   wide?: boolean;
 }
 
 export const skills: Skill[] = [
   // Languages
-  { name: "Python", kind: "Programming language", category: "Languages", logo: pythonLogo, color: "#3776ab" },
-  { name: "Java", kind: "Programming language", category: "Languages", logo: javaLogo, color: "#e76f00" },
-  { name: "PHP", kind: "Server-side language", category: "Languages", logo: phpLogo, color: "#777bb4", wide: true },
-  { name: "HTML5", kind: "Markup language", category: "Languages", logo: html5Logo, color: "#e34f26" },
+  { name: "Python", kind: "Programming language", category: "Languages", logo: pythonLogo },
+  { name: "Java", kind: "Programming language", category: "Languages", logo: javaLogo },
+  { name: "PHP", kind: "Server-side language", category: "Languages", logo: phpLogo, wide: true },
+  { name: "HTML5", kind: "Markup language", category: "Languages", logo: html5Logo },
 
   // Libraries & frameworks
-  { name: "Matplotlib", kind: "Data visualization", category: "Libraries", logo: matplotlibLogo, color: "#11557c" },
-  { name: "scikit-learn", kind: "Machine learning", category: "Libraries", logo: sklearnLogo, color: "#f7931e", wide: true },
+  { name: "Matplotlib", kind: "Data visualization", category: "Libraries", logo: matplotlibLogo },
+  { name: "scikit-learn", kind: "Machine learning", category: "Libraries", logo: sklearnLogo, wide: true },
   { name: "NLTK", kind: "Natural language processing", category: "Libraries", icon: Languages },
-  { name: "OpenCV", kind: "Computer vision (cv2)", category: "Libraries", logo: opencvLogo, color: "#5c3ee8" },
-  { name: "Biopython", kind: "Bioinformatics", category: "Libraries", logo: biopythonLogo, color: "#37709f" },
-  { name: "Tailwind CSS", kind: "CSS framework", category: "Libraries", logo: tailwindLogo, color: "#06b6d4" },
+  { name: "OpenCV", kind: "Computer vision (cv2)", category: "Libraries", logo: opencvLogo },
+  { name: "Biopython", kind: "Bioinformatics", category: "Libraries", logo: biopythonLogo },
+  { name: "Tailwind CSS", kind: "CSS framework", category: "Libraries", logo: tailwindLogo },
 
   // Tools & platforms
-  { name: "MySQL", kind: "Relational database", category: "Tools", logo: mysqlLogo, color: "#00758f" },
-  { name: "RStudio", kind: "IDE for R", category: "Tools", logo: rstudioLogo, color: "#75aadb" },
+  { name: "MySQL", kind: "Relational database", category: "Tools", logo: mysqlLogo },
+  { name: "RStudio", kind: "IDE for R", category: "Tools", logo: rstudioLogo },
   { name: "RapidMiner", kind: "Data science platform", category: "Tools", icon: Workflow },
-  { name: "Figma", kind: "Interface design", category: "Tools", logo: figmaLogo, color: "#a259ff" },
-  { name: "Cisco Packet Tracer", kind: "Network simulation", category: "Tools", logo: ciscoLogo, color: "#1ba0d7", wide: true },
+  { name: "Figma", kind: "Interface design", category: "Tools", logo: figmaLogo },
+  { name: "Cisco Packet Tracer", kind: "Network simulation", category: "Tools", logo: ciscoLogo, wide: true },
   { name: "Python Power Electronics", kind: "Circuit simulation", category: "Tools", icon: Zap },
 ];
 
@@ -219,6 +217,8 @@ export const expertise: { name: string; icon: LucideIcon }[] = [
 export interface Project {
   title: string;
   description: string;
+  /** What kind of work the project involved, shown as labels on the row. */
+  areas: string[];
   repo: string;
   figma?: string;
 }
@@ -227,6 +227,7 @@ export const projects: Project[] = [
   {
     title: "Serenity",
     description: "A platform for psychological consultation.",
+    areas: ["Interface design"],
     repo: "https://github.com/dheovanwa/Serenity",
     figma:
       "https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1",
@@ -235,6 +236,7 @@ export const projects: Project[] = [
     title: "DeepPlan",
     description:
       "An application that uses a machine learning model to predict construction project estimates.",
+    areas: ["Machine learning", "Interface design"],
     repo: "https://github.com/KepinTheNoob/DeepPlan",
     figma:
       "https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1",
@@ -242,6 +244,7 @@ export const projects: Project[] = [
   {
     title: "Finwise",
     description: "A personal finance management application that helps you manage your money.",
+    areas: ["Interface design"],
     repo: "https://github.com/KepinTheNoob/Finwise",
     figma:
       "https://www.figma.com/design/Wd2WWWV3JmNr2bRtlchsj2/Finwise?node-id=0-1&t=vxIEvOYqt8LG0HZf-1",
@@ -250,6 +253,7 @@ export const projects: Project[] = [
     title: "NoFake",
     description:
       "A machine learning model that determines whether a news article is fake or factual.",
+    areas: ["Machine learning", "Interface design"],
     repo: "https://github.com/XQVWMM/NoFake",
     figma:
       "https://www.figma.com/design/cc5QuRPuLykKp3jindjRlE/NoFake?node-id=35-277&t=oliso9qhFY7kycGQ-1",
@@ -258,6 +262,7 @@ export const projects: Project[] = [
     title: "Supreme Court Judgement Classification",
     description:
       "A machine learning model that classifies whether a person is guilty based on the facts of the case.",
+    areas: ["Machine learning"],
     repo: "https://github.com/dheovanwa/Supreme-court-judgement-classification",
   },
 ];

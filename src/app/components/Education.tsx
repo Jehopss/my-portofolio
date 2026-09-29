@@ -1,38 +1,40 @@
-import Section from "./Section";
-import { Reveal, StaggerList } from "./motion";
+import Frame from "./Frame";
 import { education } from "../data/portfolio";
 
 export default function Education() {
   return (
-    <Section id="education" index="02" title="Education">
-      <Reveal>
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-          <h3 className="text-2xl font-medium tracking-tight text-fg md:text-[1.75rem]">
-            {education.school}
-          </h3>
-          <p className="text-sm text-muted tabular-nums">{education.period}</p>
+    <Frame id="education" name="Education">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-5">
+          <h3 className="display text-[clamp(2.4rem,5vw,4rem)]">{education.school}</h3>
+          <p className="mt-5 text-lg text-pretty">{education.degree}</p>
+          <dl className="mt-8 grid grid-cols-2 border-t border-rule">
+            <div className="border-r border-rule py-4 pr-4">
+              <dt className="machine text-[0.875rem] text-muted">Period</dt>
+              <dd className="mt-1.5 tabular-nums">{education.period}</dd>
+            </div>
+            <div className="py-4 pl-4">
+              <dt className="machine text-[0.875rem] text-muted">Status</dt>
+              <dd className="mt-1.5">{education.status}</dd>
+            </div>
+          </dl>
         </div>
-        <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-          <p className="text-lg text-accent">{education.degree}</p>
-          <p className="text-sm text-muted tabular-nums">{education.status}</p>
-        </div>
-      </Reveal>
 
-      <div className="mt-12 border-t border-line pt-8">
-        <Reveal>
-          <h4 className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Relevant courses</h4>
-        </Reveal>
-        <StaggerList className="mt-5 flex flex-wrap gap-2" step={0.035}>
-          {education.courses.map((course) => (
-            <span
-              key={course}
-              className="inline-flex rounded-full border border-line bg-surface/60 px-3.5 py-1.5 text-sm text-muted transition-colors duration-300 hover:border-accent/50 hover:text-fg"
-            >
-              {course}
-            </span>
-          ))}
-        </StaggerList>
+        <div className="lg:col-span-7">
+          <h4 className="machine flex items-baseline justify-between text-[0.875rem] text-muted">
+            Relevant courses
+            <span>{education.courses.length}</span>
+          </h4>
+          {/* Fills down each column, like a transcript. */}
+          <ul className="mt-3 gap-x-8 border-t border-rule sm:columns-2">
+            {education.courses.map((course) => (
+              <li key={course} className="break-inside-avoid border-b border-rule py-2.5">
+                {course}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </Section>
+    </Frame>
   );
 }

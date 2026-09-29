@@ -4,7 +4,6 @@ import Education from "./components/Education";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Marquee from "./components/Marquee";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import SkipLink from "./components/SkipLink";
@@ -14,9 +13,8 @@ export default function Home() {
     <>
       <SkipLink />
       <Header />
-      <main id="main" tabIndex={-1} className="outline-none">
+      <main id="main" tabIndex={-1} className="shell flex flex-col gap-12 py-8 outline-none sm:gap-16 sm:py-12">
         <Hero />
-        <Marquee />
         <About />
         <Education />
         <Skills />
