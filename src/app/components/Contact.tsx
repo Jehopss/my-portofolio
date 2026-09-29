@@ -16,7 +16,7 @@ export default function Contact() {
 
       <a
         href={primary.href}
-        className="mt-10 inline-block text-[clamp(1.6rem,5.4vw,4.5rem)] leading-none font-semibold tracking-[-0.035em] [overflow-wrap:anywhere] text-ink decoration-signal decoration-2 underline-offset-8 hover:underline lg:mt-14"
+        className="mt-10 inline-block text-[clamp(1.6rem,5.4vw,4.5rem)] leading-none font-semibold tracking-[-0.035em] [overflow-wrap:anywhere] text-ink decoration-accent decoration-2 underline-offset-8 hover:underline lg:mt-14"
       >
         {primary.value}
       </a>
@@ -29,7 +29,7 @@ export default function Contact() {
           >
             <span className="machine text-[0.875rem] text-muted">{contact.label}</span>
             <span className="flex min-w-0 items-center justify-between gap-4 sm:contents">
-              <a href={contact.href} className="min-w-0 text-lg [overflow-wrap:anywhere] hover:text-signal">
+              <a href={contact.href} className="min-w-0 text-lg [overflow-wrap:anywhere] hover:text-accent">
                 {contact.value}
               </a>
               <CopyButton value={contact.copy} label={contact.label} />

@@ -6,7 +6,7 @@ import { Moon, Sun } from "lucide-react";
 type Theme = "light" | "dark";
 
 /** Browser-chrome colour for each theme: the canvas grey behind the frames. */
-const CHROME: Record<Theme, string> = { light: "#e9eaed", dark: "#0a0b0d" };
+const CHROME: Record<Theme, string> = { light: "#d9dcd6", dark: "#0a1b25" };
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);

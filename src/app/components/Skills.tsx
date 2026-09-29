@@ -31,7 +31,7 @@ export default function Skills() {
                     <Image src={skill.logo} alt="" className={`object-contain ${skill.wide ? "h-5 w-7" : "size-5"}`} />
                   ) : Icon ? (
                     // The tile stays light in both themes, so the icon keeps a fixed dark ink.
-                    <Icon aria-hidden className="size-5 text-[#0d0e11]" strokeWidth={1.75} />
+                    <Icon aria-hidden className="size-5 text-[#16425b]" strokeWidth={1.75} />
                   ) : null}
                 </span>
                 <span className="machine text-[0.8125rem] text-muted">{SINGULAR[skill.category]}</span>

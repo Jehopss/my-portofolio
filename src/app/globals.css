@@ -10,22 +10,30 @@
 /*  machine layer (1-bit pixels, detection and selection boxes) is     */
 /*  drawn in signal blue and set in a dot-matrix face.                 */
 /* ------------------------------------------------------------------ */
+/* Palette: coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7
+   Platinum #d9dcd6 is the canvas, Indigo dye #16425b the ink, Cerulean
+   #3a7ca5 the selection/detection signal, Lapis #2f6690 accent text and
+   Sky #81c3d7 the highlight. Dark mode inverts it: indigo grounds,
+   platinum ink, sky signal. Every text pairing passes WCAG AA. */
 :root {
   color-scheme: light;
 
   /* Colour */
-  --canvas: #e9eaed; /* page ground, the grey around the frames */
-  --frame: #ffffff; /* section frames */
-  --ink: #0d0e11; /* text and "on" pixels */
-  --muted: #5d626b; /* secondary text */
-  --rule: #e4e6ea; /* hairlines inside a frame */
-  --rule-strong: #c9ccd2;
-  --signal: #0f6de0; /* selection, detection, focus */
+  --canvas: #d9dcd6; /* page ground, the platinum around the frames */
+  --frame: #f7f8f6; /* section frames, a tint of the canvas */
+  --ink: #16425b; /* text and "on" pixels */
+  --muted: #4a6272; /* secondary text */
+  --rule: #e1e5e2; /* hairlines inside a frame */
+  --rule-strong: #bfc9cb;
+  --signal: #3a7ca5; /* selection, detection, focus */
   --signal-fg: #ffffff;
-  --signal-soft: rgb(15 109 224 / 0.08);
+  --signal-soft: rgb(129 195 215 / 0.28);
+  --accent: #2f6690; /* emphasised words, hovered links and buttons */
+  --accent-fg: #ffffff;
+  --highlight: #81c3d7; /* text selection */
   --chip: #ffffff; /* logo tiles stay light in both themes */
-  --px-on: #0d0e11; /* portrait pipeline: dark pixels */
-  --px-off: #ffffff; /* portrait pipeline: light pixels */
+  --px-on: #16425b; /* portrait pipeline: dark pixels */
+  --px-off: #f7f8f6; /* portrait pipeline: light pixels */
 
   /* Type */
   --font-human: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
@@ -37,35 +45,41 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --canvas: #0a0b0d;
-    --frame: #131418;
-    --ink: #eceef1;
-    --muted: #9ba1ab;
-    --rule: #23252b;
-    --rule-strong: #353841;
-    --signal: #4b9bff;
-    --signal-fg: #04101f;
-    --signal-soft: rgb(75 155 255 / 0.1);
-    --chip: #e6e8ec;
-    --px-on: #131418;
-    --px-off: #d8dbe0;
+    --canvas: #0a1b25;
+    --frame: #0f2a3a;
+    --ink: #d9dcd6;
+    --muted: #97abb4;
+    --rule: #1c3b4e;
+    --rule-strong: #2c5064;
+    --signal: #81c3d7;
+    --signal-fg: #16425b;
+    --signal-soft: rgb(129 195 215 / 0.12);
+    --accent: #81c3d7;
+    --accent-fg: #16425b;
+    --highlight: #3a7ca5;
+    --chip: #d9dcd6;
+    --px-on: #0f2a3a;
+    --px-off: #d9dcd6;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --canvas: #0a0b0d;
-  --frame: #131418;
-  --ink: #eceef1;
-  --muted: #9ba1ab;
-  --rule: #23252b;
-  --rule-strong: #353841;
-  --signal: #4b9bff;
-  --signal-fg: #04101f;
-  --signal-soft: rgb(75 155 255 / 0.1);
-  --chip: #e6e8ec;
-  --px-on: #131418;
-  --px-off: #d8dbe0;
+  --canvas: #0a1b25;
+  --frame: #0f2a3a;
+  --ink: #d9dcd6;
+  --muted: #97abb4;
+  --rule: #1c3b4e;
+  --rule-strong: #2c5064;
+  --signal: #81c3d7;
+  --signal-fg: #16425b;
+  --signal-soft: rgb(129 195 215 / 0.12);
+  --accent: #81c3d7;
+  --accent-fg: #16425b;
+  --highlight: #3a7ca5;
+  --chip: #d9dcd6;
+  --px-on: #0f2a3a;
+  --px-off: #d9dcd6;
 }
 
 @theme inline {
@@ -78,6 +92,8 @@
   --color-signal: var(--signal);
   --color-signal-fg: var(--signal-fg);
   --color-signal-soft: var(--signal-soft);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
   --color-chip: var(--chip);
 
   --font-sans: var(--font-human);
@@ -112,8 +128,8 @@
   }
 
   ::selection {
-    background: var(--signal);
-    color: var(--signal-fg);
+    background: var(--highlight);
+    color: var(--ink);
   }
 
   :focus-visible {

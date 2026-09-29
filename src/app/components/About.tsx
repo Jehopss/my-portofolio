@@ -20,7 +20,7 @@ export default function About() {
     <Frame id="about" name="About">
       <p className="max-w-4xl text-[clamp(1.75rem,3.8vw,3.25rem)] leading-[1.08] font-medium tracking-[-0.025em] text-balance">
         My interests lie at the intersection of human–computer interaction and{" "}
-        <span className="text-muted">intelligent systems.</span>
+        <span className="text-accent">intelligent systems.</span>
       </p>
 
       <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-8">

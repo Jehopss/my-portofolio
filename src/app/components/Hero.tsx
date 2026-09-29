@@ -39,7 +39,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href="#projects"
-              className="group inline-flex h-12 items-center gap-2 bg-ink px-5 text-sm font-medium text-frame transition-colors hover:bg-signal hover:text-signal-fg"
+              className="group inline-flex h-12 items-center gap-2 bg-ink px-5 text-sm font-medium text-frame transition-colors hover:bg-accent hover:text-accent-fg"
             >
               View projects
               <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
