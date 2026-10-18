@@ -224,7 +224,7 @@ export interface Project {
   /** Three words, shown under the project's strip of frames. */
   kind: string;
   description: string;
-  /** Year of the repository's latest commit. */
+  /** Year the project was made. */
   year: string;
   areas: ProjectArea[];
   /** One of the five palette colours; it marks this project's frames everywhere. */
@@ -249,7 +249,7 @@ export const projects: Project[] = [
     title: "Finwise",
     kind: "Personal finance manager",
     description: "A personal finance management application that helps you manage your money.",
-    year: "2026",
+    year: "2025",
     areas: ["Interface design"],
     colour: indigo,
     frames: [
@@ -296,7 +296,7 @@ export const projects: Project[] = [
     title: "Serenity",
     kind: "Psychological consultation platform",
     description: "A platform for psychological consultation.",
-    year: "2025",
+    year: "2024",
     areas: ["Interface design"],
     colour: cerulean,
     frames: [frames.seLake, frames.seLandscape],
