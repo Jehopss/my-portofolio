@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import { MotionConfig } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 
+import QuestProvider from "./QuestProvider";
+
 /**
  * Lenis gives the whole page inertial, buttery scrolling (and smooth
  * anchor-link jumps). Both Lenis and Framer Motion back off automatically
@@ -21,7 +23,9 @@ export default function Providers({ children }: { children: ReactNode }) {
         stopInertiaOnNavigate: true,
       }}
     >
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      <MotionConfig reducedMotion="user">
+        <QuestProvider>{children}</QuestProvider>
+      </MotionConfig>
     </ReactLenis>
   );
 }

@@ -6,6 +6,8 @@ import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Figma, Github } from "lucide-react";
 
 import Gallery, { type GalleryItem } from "./Gallery";
+import HiddenStar from "./HiddenStar";
+import { useQuest } from "./QuestProvider";
 import { EASE, fadeUp } from "./motion";
 import { projectAreas, projects, type Project, type ProjectArea } from "../data/portfolio";
 
@@ -95,6 +97,7 @@ function Thumbnails({
  */
 export default function ProjectList() {
   const [filter, setFilter] = useState<Filter>("All");
+  const { unlock } = useQuest();
   // Rows animate on their own state rather than inheriting it from the list, so
   // rows that come back after a filter change still fade in.
   const [revealed, setRevealed] = useState(false);
@@ -146,7 +149,10 @@ export default function ProjectList() {
               key={option}
               type="button"
               aria-pressed={selected}
-              onClick={() => setFilter(option)}
+              onClick={() => {
+                setFilter(option);
+                if (option !== "All") unlock("curator");
+              }}
               className={`relative rounded-full px-2.5 py-1.5 text-sm transition-colors duration-300 min-[380px]:px-3 sm:px-3.5 ${
                 selected ? "text-bg" : "text-muted hover:text-fg"
               }`}
@@ -166,6 +172,7 @@ export default function ProjectList() {
           );
         })}
       </div>
+      <HiddenStar id="projects" className="mb-6 ml-2" />
 
       <motion.ul
         ref={list}
@@ -229,6 +236,7 @@ export default function ProjectList() {
                         items={items}
                         onOpen={(index, button) => {
                           opener.current = button;
+                          unlock("close-up");
                           setOpen({ project: number, index, origin: index });
                         }}
                       />

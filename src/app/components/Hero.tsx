@@ -15,7 +15,9 @@ import { ArrowRight } from "lucide-react";
 import portrait from "../assets/profile.webp";
 import FaceMatch from "./FaceMatch";
 import Greeting from "./Greeting";
+import HiddenStar from "./HiddenStar";
 import Magnetic from "./Magnetic";
+import { useQuest } from "./QuestProvider";
 import { EASE } from "./motion";
 import { profile, socials } from "../data/portfolio";
 
@@ -34,7 +36,11 @@ function Portrait() {
   const card = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const [scan, setScan] = useState(0);
-  const rescan = () => setScan((n) => n + 1);
+  const { unlock } = useQuest();
+  const rescan = () => {
+    setScan((n) => n + 1);
+    unlock("identity");
+  };
   const onKey = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
@@ -199,7 +205,52 @@ function Name() {
   );
 }
 
+/** Phones get a small round photo instead of the card; a tap runs a quick face match on it. */
+function Avatar() {
+  const [scan, setScan] = useState(0);
+  const { unlock } = useQuest();
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        setScan((n) => n + 1);
+        unlock("identity");
+      }}
+      aria-label="Run the face match on my photo"
+      className="relative block size-20 rounded-full"
+    >
+      <Image
+        src={portrait}
+        alt=""
+        priority
+        sizes="80px"
+        className="size-20 rounded-full object-cover object-[50%_18%] ring-1 ring-line dark:brightness-[0.92] dark:saturate-[0.85]"
+      />
+      {scan > 0 && (
+        <span key={scan} aria-hidden className="pointer-events-none absolute inset-0">
+          <motion.span
+            className="absolute -inset-1.5 rounded-full border-2 border-accent"
+            initial={{ scale: 1.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 1.8, ease: EASE, times: [0, 0.25, 0.8, 1] }}
+          />
+          <motion.span
+            className="absolute top-1/2 left-[calc(100%+0.75rem)] -translate-y-1/2 rounded-full bg-accent px-2.5 py-1 text-xs font-medium whitespace-nowrap text-accent-fg tabular-nums"
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: [0, 1, 1, 0], x: 0 }}
+            transition={{ duration: 2.4, ease: EASE, times: [0, 0.15, 0.85, 1], delay: 0.35 }}
+          >
+            Jonathan · 98.7% match
+          </motion.span>
+        </span>
+      )}
+    </button>
+  );
+}
+
 export default function Hero() {
+  const { unlock } = useQuest();
 
   return (
     <section id="top" className="relative isolate overflow-hidden">
@@ -212,13 +263,7 @@ export default function Hero() {
       <div className="shell grid min-h-[100svh] items-center gap-12 pt-28 pb-24 md:grid-cols-12 md:gap-10 md:pt-32">
         <div className="md:col-span-7">
           <motion.div {...intro(0.2)} className="mb-8 md:hidden">
-            <Image
-              src={portrait}
-              alt=""
-              priority
-              sizes="80px"
-              className="size-20 rounded-full object-cover object-[50%_18%] ring-1 ring-line dark:brightness-[0.92] dark:saturate-[0.85]"
-            />
+            <Avatar />
           </motion.div>
 
           <motion.div {...intro(0.25)}>
@@ -231,7 +276,7 @@ export default function Hero() {
             {...intro(0.75)}
             className="mt-8 max-w-xl text-[1.0625rem] leading-relaxed text-pretty text-muted md:text-xl"
           >
-            {profile.summary}
+            {profile.summary} <HiddenStar id="hero" />
           </motion.p>
 
           <motion.div {...intro(0.9)} className="mt-10 flex flex-wrap items-center gap-3">
@@ -264,6 +309,7 @@ export default function Hero() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => unlock("networker")}
                     aria-label={label}
                     title={label}
                     className="grid size-12 place-items-center rounded-full text-muted transition-colors duration-300 hover:bg-surface hover:text-fg"

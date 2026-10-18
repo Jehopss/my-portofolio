@@ -13,6 +13,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 
 import ThemeToggle from "./ThemeToggle";
 import { EASE } from "./motion";
+import { useQuest } from "./QuestProvider";
 import { navItems, socials } from "../data/portfolio";
 
 export default function Header() {
@@ -22,6 +23,17 @@ export default function Header() {
   const lenis = useLenis();
   const menuButton = useRef<HTMLButtonElement>(null);
   const firstLink = useRef<HTMLAnchorElement>(null);
+  const { unlock } = useQuest();
+  const knocks = useRef<number[]>([]);
+
+  // The secret quest's touch-friendly way in: five quick taps on the logo.
+  const knock = () => {
+    const now = Date.now();
+    knocks.current = [...knocks.current.filter((time) => now - time < 2500), now];
+    if (knocks.current.length < 5) return;
+    knocks.current = [];
+    unlock("cheat-code");
+  };
 
   // Thin reading-progress line along the very top edge.
   const { scrollY, scrollYProgress } = useScroll();
@@ -105,7 +117,10 @@ export default function Header() {
           <div className="shell flex h-16 items-center justify-between gap-4 md:h-[4.5rem]">
             <a
               href="#top"
-              onClick={open ? goTo("top") : undefined}
+              onClick={(event) => {
+                knock();
+                if (open) goTo("top")(event);
+              }}
               className="text-xl leading-none font-semibold tracking-[-0.03em] text-fg"
               aria-label="Jonathan Hopi Pranata — back to top"
             >

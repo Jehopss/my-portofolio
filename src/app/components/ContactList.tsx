@@ -6,6 +6,7 @@ import { ArrowUpRight, Check, Copy } from "lucide-react";
 
 import Magnetic from "./Magnetic";
 import { EASE, fadeUp, stagger } from "./motion";
+import { useQuest } from "./QuestProvider";
 import { contacts, socials } from "../data/portfolio";
 
 async function copyText(text: string) {
@@ -29,12 +30,14 @@ async function copyText(text: string) {
 
 function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
+  const { unlock } = useQuest();
   const timer = useRef<number | undefined>(undefined);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const onCopy = async () => {
     if (!(await copyText(value))) return;
+    unlock("networker");
     setCopied(true);
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => setCopied(false), 1800);
@@ -76,6 +79,9 @@ function CopyButton({ value, label }: { value: string; label: string }) {
 }
 
 export default function ContactList() {
+  const { unlock } = useQuest();
+  const reachOut = () => unlock("networker");
+
   return (
     <>
       <motion.ul
@@ -93,7 +99,7 @@ export default function ContactList() {
           >
             <span className="text-xs font-medium tracking-[0.16em] text-muted uppercase">{contact.label}</span>
             <span className="flex items-center justify-between gap-4 sm:justify-end">
-              <a href={contact.href} className="link-draw text-lg break-all text-fg sm:text-xl">
+              <a href={contact.href} onClick={reachOut} className="link-draw text-lg break-all text-fg sm:text-xl">
                 {contact.value}
               </a>
               <CopyButton value={contact.copy} label={contact.label} />
@@ -116,6 +122,7 @@ export default function ContactList() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={reachOut}
                 className="group inline-flex h-11 items-center gap-2.5 rounded-full border border-line-strong px-5 text-sm font-medium text-fg transition-[background-color,transform] duration-300 hover:bg-surface active:scale-[0.97]"
               >
                 <Icon aria-hidden className="size-4" strokeWidth={1.75} />

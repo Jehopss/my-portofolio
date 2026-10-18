@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { EASE } from "./motion";
+import { useQuest } from "./QuestProvider";
 import { greetings } from "../data/portfolio";
 
 function greetingsFor(date: Date) {
@@ -18,6 +19,7 @@ function greetingsFor(date: Date) {
 export default function Greeting({ className = "" }: { className?: string }) {
   const [list, setList] = useState<string[]>(["Hello!"]);
   const [index, setIndex] = useState(0);
+  const { unlock } = useQuest();
 
   // The visitor's local time is only known in the browser.
   useEffect(() => {
@@ -37,7 +39,10 @@ export default function Greeting({ className = "" }: { className?: string }) {
   return (
     <button
       type="button"
-      onClick={() => setIndex((i) => (i + 1) % list.length)}
+      onClick={() => {
+        setIndex((i) => (i + 1) % list.length);
+        unlock("polyglot");
+      }}
       title="Say hello in another language"
       className={`group relative block h-[1.35em] w-full cursor-pointer overflow-hidden text-left transition-colors duration-300 hover:text-accent ${className}`}
     >

@@ -1,4 +1,6 @@
 import { ArrowUp } from "lucide-react";
+
+import HiddenStar from "./HiddenStar";
 import { profile } from "../data/portfolio";
 
 export default function Footer() {
@@ -8,7 +10,7 @@ export default function Footer() {
     <footer className="border-t border-line">
       <div className="shell flex flex-col gap-4 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
-          © {year} {profile.name}
+          © {year} {profile.name} <HiddenStar id="footer" className="-my-2" />
         </p>
         <p className="hidden md:block">Built with Next.js, Tailwind CSS &amp; Framer Motion.</p>
         <a href="#top" className="group inline-flex items-center gap-2 self-start transition-colors hover:text-fg sm:self-auto">

@@ -1,3 +1,4 @@
+import HiddenStar from "./HiddenStar";
 import { Reveal, StaggerList } from "./motion";
 import { expertise } from "../data/portfolio";
 
@@ -6,7 +7,9 @@ export default function Expertise() {
     <div className="mt-16 md:mt-20">
       <Reveal>
         <div className="flex items-baseline justify-between">
-          <h3 className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Areas of expertise</h3>
+          <h3 className="text-xs font-medium tracking-[0.16em] text-muted uppercase">
+            Areas of expertise <HiddenStar id="expertise" className="-my-2 ml-1" />
+          </h3>
           <span className="text-xs text-muted tabular-nums">{String(expertise.length).padStart(2, "0")}</span>
         </div>
       </Reveal>

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { AnimatePresence, motion } from "framer-motion";
 
 import { EASE } from "./motion";
+import { useQuest } from "./QuestProvider";
 import { skillCategories, skills, type Skill, type SkillCategory } from "../data/portfolio";
 
 type Filter = "All" | SkillCategory;
@@ -84,6 +85,7 @@ function AutoHeight({ children }: { children: ReactNode }) {
 /** Filterable grid of technologies; tiles glide into place when the filter changes. */
 export default function SkillGrid() {
   const [filter, setFilter] = useState<Filter>("All");
+  const { unlock } = useQuest();
   const visible = filter === "All" ? skills : skills.filter((skill) => skill.category === filter);
 
   return (
@@ -102,7 +104,10 @@ export default function SkillGrid() {
                 key={option}
                 type="button"
                 aria-pressed={selected}
-                onClick={() => setFilter(option)}
+                onClick={() => {
+                  setFilter(option);
+                  if (option !== "All") unlock("toolbox");
+                }}
                 className={`relative rounded-full px-2.5 py-1.5 text-sm transition-colors duration-300 min-[380px]:px-3 sm:px-3.5 ${
                   selected ? "text-bg" : "text-muted hover:text-fg"
                 }`}

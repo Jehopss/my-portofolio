@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Marquee from "./components/Marquee";
 import Projects from "./components/Projects";
+import QuestHud from "./components/QuestHud";
 import Skills from "./components/Skills";
 import SkipLink from "./components/SkipLink";
 
@@ -25,6 +26,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <QuestHud />
       <Cursor />
     </>
   );

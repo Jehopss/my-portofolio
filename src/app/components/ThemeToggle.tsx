@@ -3,6 +3,8 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Moon, Sun } from "lucide-react";
 
+import { useQuest } from "./QuestProvider";
+
 type Theme = "light" | "dark";
 
 const THEME_COLORS: Record<Theme, string> = { light: "#f4f3ee", dark: "#101312" };
@@ -14,6 +16,7 @@ const THEME_COLORS: Record<Theme, string> = { light: "#f4f3ee", dark: "#101312" 
  */
 export default function ThemeToggle({ className = "" }: { className?: string }) {
   const [theme, setTheme] = useState<Theme | null>(null);
+  const { unlock } = useQuest();
 
   useEffect(() => {
     setTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
@@ -22,6 +25,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
   const toggle = (event: MouseEvent<HTMLButtonElement>) => {
     const root = document.documentElement;
     const next: Theme = root.dataset.theme === "dark" ? "light" : "dark";
+    unlock("lights");
 
     const apply = () => {
       root.dataset.theme = next;

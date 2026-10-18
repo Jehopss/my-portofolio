@@ -1,3 +1,4 @@
+import HiddenStar from "./HiddenStar";
 import ScrollText from "./ScrollText";
 import Section from "./Section";
 import { Reveal } from "./motion";
@@ -21,7 +22,7 @@ export default function About() {
           intelligent systems. I am passionate about{" "}
           <strong className="font-medium text-fg">UI/UX Design, Computer Vision</strong> and{" "}
           <strong className="font-medium text-fg">Machine Learning</strong>, and I am actively
-          seeking opportunities to grow in these fields.
+          seeking opportunities to grow in these fields. <HiddenStar id="about" />
         </p>
       </Reveal>
     </Section>

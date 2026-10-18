@@ -237,6 +237,22 @@ html[data-switching] *::after {
   transition-delay: 0s;
 }
 
+/* Hidden stars (HiddenStar) breathe softly so a sharp eye can spot them. */
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(0.85) rotate(0deg);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.15) rotate(25deg);
+    opacity: 1;
+  }
+}
+.star-twinkle {
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+
 /* Mobile menu open: freeze the page underneath. */
 html.menu-open {
   overflow: hidden;
@@ -244,7 +260,8 @@ html.menu-open {
 
 @media (prefers-reduced-motion: reduce) {
   .aurora,
-  .scroll-cue {
+  .scroll-cue,
+  .star-twinkle {
     animation: none !important;
   }
   .theme-icon {
