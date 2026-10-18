@@ -3,6 +3,8 @@
  * (new skill, new project, new course) never means touching the layout code.
  */
 import type { StaticImageData } from "next/image";
+
+import { frames, type Frame } from "./frames";
 import {
   BrainCircuit,
   ChartColumn,
@@ -50,10 +52,9 @@ export const profile = {
 };
 
 export const navItems = [
+  { id: "work", label: "Work" },
   { id: "about", label: "About" },
-  { id: "education", label: "Education" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
+  { id: "tools", label: "Tools" },
   { id: "contact", label: "Contact" },
 ] as const;
 
@@ -214,48 +215,131 @@ export const expertise: { name: string; icon: LucideIcon }[] = [
 /* ------------------------------------------------------------------ */
 /*  Projects                                                           */
 /* ------------------------------------------------------------------ */
+export type ProjectArea = "Interface design" | "Machine learning";
+
 export interface Project {
   title: string;
+  /** Short name for the colour strips, where the full title would be cut off. */
+  label?: string;
+  /** Three words, shown under the project's strip of frames. */
+  kind: string;
   description: string;
+  /** Year of the repository's latest commit. */
+  year: string;
+  areas: ProjectArea[];
+  /** One of the five palette colours; it marks this project's frames everywhere. */
+  colour: { fill: string; ink: string };
+  /** The project's strip in the Work section. */
+  frames: Frame[];
+  /** Further pictures that appear only on the sheet at the top of the page. */
+  moreFrames?: Frame[];
   repo: string;
   figma?: string;
 }
 
+// The Coolors palette, one colour per project.
+const indigo = { fill: "#16425b", ink: "#d9dcd6" };
+const lapis = { fill: "#2f6690", ink: "#ffffff" };
+const cerulean = { fill: "#3a7ca5", ink: "#ffffff" };
+const sky = { fill: "#81c3d7", ink: "#16425b" };
+const platinum = { fill: "#d9dcd6", ink: "#16425b" };
+
 export const projects: Project[] = [
   {
-    title: "Serenity",
-    description: "A platform for psychological consultation.",
-    repo: "https://github.com/dheovanwa/Serenity",
-    figma:
-      "https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1",
-  },
-  {
-    title: "DeepPlan",
-    description:
-      "An application that uses a machine learning model to predict construction project estimates.",
-    repo: "https://github.com/KepinTheNoob/DeepPlan",
-    figma:
-      "https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1",
-  },
-  {
     title: "Finwise",
+    kind: "Personal finance manager",
     description: "A personal finance management application that helps you manage your money.",
+    year: "2026",
+    areas: ["Interface design"],
+    colour: indigo,
+    frames: [
+      frames.fwDashboard,
+      frames.fwCategories,
+      frames.fwAddCategory,
+      frames.fwTransactions,
+      frames.fwAddTransaction,
+      frames.fwBudgets,
+    ],
+    moreFrames: [
+      frames.fwRecent,
+      frames.fwColour,
+      frames.fwDate,
+      frames.fwBudgetCards,
+      frames.fwEditBudget,
+      frames.fwChart,
+    ],
     repo: "https://github.com/KepinTheNoob/Finwise",
     figma:
       "https://www.figma.com/design/Wd2WWWV3JmNr2bRtlchsj2/Finwise?node-id=0-1&t=vxIEvOYqt8LG0HZf-1",
   },
   {
+    title: "Supreme Court Judgement Classification",
+    label: "Supreme Court",
+    kind: "Case outcome classifier",
+    description:
+      "A machine learning model that classifies whether a person is guilty based on the facts of the case.",
+    year: "2025",
+    areas: ["Machine learning"],
+    colour: lapis,
+    frames: [
+      frames.scBalance,
+      frames.scWords,
+      frames.scCloud,
+      frames.scLengths,
+      frames.scIssues,
+      frames.scVarianceTotal,
+    ],
+    moreFrames: [frames.scCloudRaw, frames.scBoxplot, frames.scVariance],
+    repo: "https://github.com/dheovanwa/Supreme-court-judgement-classification",
+  },
+  {
+    title: "Serenity",
+    kind: "Psychological consultation platform",
+    description: "A platform for psychological consultation.",
+    year: "2025",
+    areas: ["Interface design"],
+    colour: cerulean,
+    frames: [frames.seLake, frames.seLandscape],
+    repo: "https://github.com/dheovanwa/Serenity",
+    figma:
+      "https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1",
+  },
+  {
     title: "NoFake",
+    kind: "Fake news detector",
     description:
       "A machine learning model that determines whether a news article is fake or factual.",
+    year: "2025",
+    areas: ["Machine learning", "Interface design"],
+    colour: sky,
+    frames: [frames.nfLogo],
     repo: "https://github.com/XQVWMM/NoFake",
     figma:
       "https://www.figma.com/design/cc5QuRPuLykKp3jindjRlE/NoFake?node-id=35-277&t=oliso9qhFY7kycGQ-1",
   },
   {
-    title: "Supreme Court Judgement Classification",
+    title: "DeepPlan",
+    kind: "Construction estimate predictor",
     description:
-      "A machine learning model that classifies whether a person is guilty based on the facts of the case.",
-    repo: "https://github.com/dheovanwa/Supreme-court-judgement-classification",
+      "An application that uses a machine learning model to predict construction project estimates.",
+    year: "2025",
+    areas: ["Machine learning", "Interface design"],
+    colour: platinum,
+    frames: [frames.dpIcon],
+    repo: "https://github.com/KepinTheNoob/DeepPlan",
+    figma:
+      "https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1",
   },
+];
+
+/** Every picture on the sheet at the top of the page, labelled with its project. */
+export const sheet: { frame: Frame; label: string; colour: Project["colour"] }[] = [
+  { frame: frames.portrait, label: "Jonathan", colour: platinum },
+  ...projects.flatMap((project) =>
+    [...project.frames, ...(project.moreFrames ?? [])].map((frame) => ({
+      frame,
+      label: project.label ?? project.title,
+      colour: project.colour,
+    })),
+  ),
 ];

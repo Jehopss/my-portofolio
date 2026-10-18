@@ -2,9 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 
-import "lenis/dist/lenis.css";
 import "./globals.css";
-import Providers from "./components/Providers";
 
 // The one typeface for the whole site: Outfit, a clean geometric sans
 // (variable 100–900, SIL OFL). Self-hosted, so builds never depend on Google Fonts.
@@ -29,8 +27,9 @@ export const viewport: Viewport = {
 };
 
 // Runs before first paint: apply the saved theme (or the OS preference) so the
-// page never flashes the wrong colours.
-const themeScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t;document.addEventListener('DOMContentLoaded',function(){var c=t==='dark'?'#0a1b25':'#f3f4f1';document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute('content',c)})})}catch(e){}})();`;
+// page never flashes the wrong colours, and mark the page as scripted so the
+// entrance animations may start hidden (without scripts, nothing is hidden).
+const themeScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.classList.add('js');d.dataset.theme=t;document.addEventListener('DOMContentLoaded',function(){var c=t==='dark'?'#0a1b25':'#f3f4f1';document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute('content',c)})})}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -43,7 +42,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <Providers>{children}</Providers>
+        {children}
       </body>
     </html>
   );

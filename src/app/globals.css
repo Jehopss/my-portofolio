@@ -5,11 +5,13 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens                                                      */
+/*  Direction: the contact sheet (tasteskill, seed 569192657).         */
+/*  The work is laid out like a photographer's contact sheet: rows of  */
+/*  frames from the projects, each marked with its project's colour.   */
+/*                                                                     */
 /*  Palette: coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7             */
-/*  Platinum tints the page and draws the rules, Indigo dye is the     */
-/*  ink, Lapis the accent, Cerulean the face-detection overlay and     */
-/*  Sky the soft highlight.                                            */
+/*  The ground stays as the owner set it. Indigo dye is the ink, Lapis */
+/*  the one accent (the action), and all five colours mark projects.   */
 /*  Dark mode flips it: indigo ground, platinum ink, sky accent.       */
 /* ------------------------------------------------------------------ */
 :root {
@@ -20,23 +22,36 @@
   --surface-2: #e6e8e3;
   --fg: #16425b;
   --muted: #4a6272;
-  --subtle: #4a6272;
-  --line: #d9dcd6;
-  --line-strong: #c3cac6;
   --accent: #2f6690;
   --accent-fg: #ffffff;
-  --accent-soft: rgb(129 195 215 / 0.3);
   --highlight: #81c3d7;
   --chip: #ffffff;
-  --elevation: 0 1px 2px rgb(22 66 91 / 0.06), 0 18px 40px -24px rgb(22 66 91 / 0.35);
 
-  /* Face-detection overlay on the portrait. The photo has the same white
-     backdrop in both themes, so this stays one colour in both. */
-  --detect: #3a7ca5;
-  --detect-fg: #ffffff;
+  /* Five sizes do all the work. */
+  --step-small: 0.875rem;
+  --step-body: 1rem;
+  --step-lead: clamp(1.25rem, 1.7vw, 1.625rem);
+  --step-heading: 1.75rem;
+  --step-display: clamp(3rem, 8.2vw, 8.25rem);
 
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* One pair of page margins; one gap between sections. */
+  --margin: 1rem;
+  --section-gap: clamp(6rem, 9vw, 8rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --margin: 1.5rem;
+  }
 }
 
 :root[data-theme="dark"] {
@@ -47,15 +62,10 @@
   --surface-2: #14344a;
   --fg: #d9dcd6;
   --muted: #97abb4;
-  --subtle: #7f96a1;
-  --line: #1c3b4e;
-  --line-strong: #2c5064;
   --accent: #81c3d7;
   --accent-fg: #16425b;
-  --accent-soft: rgb(129 195 215 / 0.12);
   --highlight: #3a7ca5;
   --chip: #d9dcd6;
-  --elevation: 0 1px 2px rgb(0 0 0 / 0.3), 0 20px 44px -24px rgb(0 0 0 / 0.75);
 }
 
 @theme inline {
@@ -64,22 +74,19 @@
   --color-surface-2: var(--surface-2);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
-  --color-subtle: var(--subtle);
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
-  --color-accent-soft: var(--accent-soft);
   --color-chip: var(--chip);
-  --color-detect: var(--detect);
-  --color-detect-fg: var(--detect-fg);
 
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 
-  --ease-out-expo: var(--ease-expo);
-  --ease-spring: var(--ease-bounce);
+  --text-small: var(--step-small);
+  --text-body: var(--step-body);
+  --text-lead: var(--step-lead);
+  --text-heading: var(--step-heading);
+  --text-display: var(--step-display);
 
-  --shadow-soft: var(--elevation);
+  --ease-out: var(--ease-out);
 }
 
 /* ------------------------------------------------------------------ */
@@ -88,6 +95,7 @@
 @layer base {
   html {
     background: var(--bg);
+    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -96,9 +104,24 @@
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--step-body);
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
   }
 
   ::selection {
@@ -110,51 +133,193 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
 
 /* ------------------------------------------------------------------ */
 /*  Utilities                                                          */
 /* ------------------------------------------------------------------ */
-@utility shell {
-  width: 100%;
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-
-  @media (width >= 40rem) {
-    padding-inline: 2rem;
-  }
+@utility page {
+  padding-inline: var(--margin);
 }
 
-/* Underline that draws itself in from the left on hover. */
-@utility link-draw {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% 1px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.6s var(--ease-expo);
+/* Underlined text link that answers the pointer. */
+@utility text-link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-underline-offset var(--t-hover) var(--ease-out), color var(--t-hover) ease;
 
   &:hover,
   &:focus-visible {
-    background-size: 100% 1px;
+    text-underline-offset: 0.4em;
+    color: var(--accent);
+  }
+}
+
+/* The one button shape on the page: square corners, one flat fill. */
+@utility button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 1.25rem;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 500;
+  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+
+  &:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  &:active {
+    transform: scale(0.97);
   }
 }
 
 /* ------------------------------------------------------------------ */
-/*  Theme toggle icons                                                 */
+/*  Frames                                                             */
+/*  A picture plus the flat colour strip that names its project.       */
 /* ------------------------------------------------------------------ */
-.theme-icon {
-  transition:
-    transform 0.7s var(--ease-bounce),
-    opacity 0.35s ease;
+.frame {
+  display: block;
+  overflow: hidden;
+  background: var(--chip);
+  cursor: zoom-in;
 }
-:root:not([data-theme="dark"]) .theme-icon--sun,
-:root[data-theme="dark"] .theme-icon--moon {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.4);
+.frame img {
+  display: block;
+  transition: transform 600ms var(--ease-soft);
+}
+@media (hover: hover) and (pointer: fine) {
+  .frame:hover img,
+  .frame:focus-visible img {
+    transform: scale(1.04);
+  }
+}
+.strip {
+  display: block;
+  height: 1.75rem;
+  padding-inline: 0.5rem;
+  overflow: hidden;
+  background: var(--strip);
+  color: var(--strip-ink);
+  font-size: var(--step-small);
+  line-height: 1.75rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-/* Circular reveal when switching themes (View Transitions API). */
+/* Work strips: hovering one project's frames quiets the others' pictures. */
+@media (hover: hover) and (pointer: fine) {
+  .work-list:has(.work-frames:hover) .work-frames:not(:hover) .frame {
+    opacity: 0.4;
+  }
+  .work-frames .frame {
+    transition: opacity var(--t-hover) ease;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Motion. Hidden states apply only under html.js (set in <head>), so */
+/*  everything is visible if scripts never run.                        */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero load: four things, one gesture. */
+  .js [data-rise] {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: rise var(--t-reveal) var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+  }
+
+  /* Section entrances, in reading order once each part enters. */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 450ms var(--ease-out),
+      transform 600ms var(--ease-out);
+    transition-delay: calc(min(var(--i, 0), 6) * 50ms);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Pictures open from below their own edge instead of fading. */
+  .js [data-unmask] {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 550ms var(--ease-in-out);
+    transition-delay: calc(min(var(--i, 0), 4) * 40ms);
+  }
+  .js [data-unmask].is-in {
+    clip-path: inset(0);
+  }
+
+  /* Signature move: the Finwise recording opens like a shutter. */
+  .js .shutter {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1100ms var(--ease-in-out);
+  }
+  .js .shutter video {
+    transform: scale(1.12);
+    transition: transform 1500ms var(--ease-soft);
+  }
+  .js .shutter.is-in {
+    clip-path: inset(0);
+  }
+  .js .shutter.is-in video {
+    transform: none;
+  }
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Footer greeting: each new language rises into place. */
+@keyframes greet {
+  from {
+    opacity: 0;
+    transform: translateY(40%);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .greet {
+    animation: greet 600ms var(--ease-out) both;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Viewer (the enlarged frame)                                        */
+/* ------------------------------------------------------------------ */
+.viewer::backdrop {
+  /* A literal colour: custom properties do not reach ::backdrop in every browser. */
+  background: rgb(10 27 37 / 0.94);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .viewer[open] {
+    animation: viewer-in var(--t-ui) var(--ease-out);
+  }
+}
+@keyframes viewer-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* Theme switch: the new theme spreads from the button (View Transitions). */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -164,109 +329,4 @@ html[data-switching] *,
 html[data-switching] *::before,
 html[data-switching] *::after {
   transition: none !important;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page-load sequence                                                 */
-/*  The one orchestrated moment on the site: the hero assembles, then  */
-/*  a detection box locks onto the portrait. Plain CSS, so it plays    */
-/*  before hydration and every element ends fully visible even if the  */
-/*  JavaScript never loads. Stagger with style={{ "--d": "0.3s" }}.     */
-/* ------------------------------------------------------------------ */
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
-  }
-}
-.intro {
-  animation: rise 1s var(--ease-expo) var(--d, 0s) both;
-}
-
-@keyframes word-rise {
-  from {
-    transform: translate3d(0, 110%, 0);
-  }
-}
-.intro-word {
-  display: inline-block;
-  animation: word-rise 1.1s var(--ease-expo) var(--d, 0s) both;
-}
-
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 40px, 0) scale(0.96);
-  }
-}
-.intro-card {
-  animation: card-in 1.3s var(--ease-expo) var(--d, 0s) both;
-}
-
-@keyframes wipe {
-  from {
-    clip-path: inset(100% 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-@keyframes settle {
-  from {
-    transform: scale(1.2);
-  }
-}
-.intro-wipe {
-  animation: wipe 1.4s var(--ease-expo) var(--d, 0s) both;
-}
-.intro-settle {
-  animation: settle 2s var(--ease-expo) var(--d, 0s) both;
-}
-
-/* The box overshoots and snaps in, the way a tracker settles on a face. */
-@keyframes lock-on {
-  0% {
-    opacity: 0;
-    transform: scale(1.35);
-  }
-  55% {
-    opacity: 1;
-    transform: scale(0.97);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.detect-box {
-  animation: lock-on 0.9s var(--ease-expo) var(--d, 0s) both;
-}
-@keyframes tag-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 4px, 0);
-  }
-}
-.detect-tag {
-  animation: tag-in 0.5s var(--ease-expo) var(--d, 0s) both;
-}
-
-/* Mobile menu open: freeze the page underneath. */
-html.menu-open {
-  overflow: hidden;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .intro,
-  .intro-word,
-  .intro-card,
-  .intro-wipe,
-  .intro-settle,
-  .detect-box,
-  .detect-tag {
-    animation: none !important;
-  }
-  .theme-icon {
-    transition: opacity 0.2s ease;
-  }
 }
