@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
+import { EASE } from "./motion";
 import { greetings } from "../data/portfolio";
 
 function greetingsFor(date: Date) {
@@ -12,7 +14,7 @@ function greetingsFor(date: Date) {
   return greetings.night;
 }
 
-/** A greeting for the visitor's time of day, cycling through languages. */
+/** "Good afternoon!" → "こんにちは" → "Bonjour!"… a greeting that softly rolls through languages. */
 export default function Greeting({ className = "" }: { className?: string }) {
   const [list, setList] = useState<string[]>(["Hello!"]);
   const [index, setIndex] = useState(0);
@@ -24,7 +26,7 @@ export default function Greeting({ className = "" }: { className?: string }) {
   }, []);
 
   useEffect(() => {
-    if (list.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (list.length < 2) return;
     const timer = window.setInterval(() => setIndex((i) => (i + 1) % list.length), 2800);
     return () => window.clearInterval(timer);
   }, [list]);
@@ -32,11 +34,21 @@ export default function Greeting({ className = "" }: { className?: string }) {
   const text = list[index % list.length];
 
   return (
-    <p className={`overflow-hidden ${className}`}>
+    <p className={`relative h-[1.35em] overflow-hidden ${className}`}>
       <span className="sr-only">{list[0]}</span>
-      <span key={text} aria-hidden className="greet block">
-        {text}
-      </span>
+      <AnimatePresence initial={false}>
+        <motion.span
+          key={text}
+          aria-hidden
+          className="absolute inset-x-0 top-0 whitespace-nowrap"
+          initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
+          animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+          exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
+          transition={{ duration: 0.8, ease: EASE }}
+        >
+          {text}
+        </motion.span>
+      </AnimatePresence>
     </p>
   );
 }

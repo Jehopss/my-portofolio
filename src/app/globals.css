@@ -5,67 +5,50 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ------------------------------------------------------------------ */
-/*  Direction: the contact sheet (tasteskill, seed 569192657).         */
-/*  The work is laid out like a photographer's contact sheet: rows of  */
-/*  frames from the projects, each marked with its project's colour.   */
-/*                                                                     */
-/*  Palette: coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7             */
-/*  The ground stays as the owner set it. Indigo dye is the ink, Lapis */
-/*  the one accent (the action), and all five colours mark projects.   */
-/*  Dark mode flips it: indigo ground, platinum ink, sky accent.       */
+/*  Design tokens                                                      */
+/*  Warm "paper" neutrals + a calm teal accent that echoes the photo.  */
 /* ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
 
-  --bg: #f3f4f1;
-  --surface: #fafbf9;
-  --surface-2: #e6e8e3;
-  --fg: #16425b;
-  --muted: #4a6272;
-  --accent: #2f6690;
+  --bg: #f4f3ee;
+  --surface: #faf9f6;
+  --surface-2: #ecebe5;
+  --fg: #202321;
+  --muted: #5b605c;
+  --subtle: #696e6a;
+  --line: #e1e0d8;
+  --line-strong: #cbcac1;
+  --accent: #2a6a73;
   --accent-fg: #ffffff;
-  --highlight: #81c3d7;
+  --accent-soft: rgb(42 106 115 / 0.09);
   --chip: #ffffff;
+  --glow: rgb(20 150 165 / 0.13);
+  --elevation: 0 1px 2px rgb(32 35 33 / 0.04), 0 12px 32px -18px rgb(32 35 33 / 0.18);
+  --grain-opacity: 0.035;
 
-  /* Five sizes do all the work. */
-  --step-small: 0.875rem;
-  --step-body: 1rem;
-  --step-lead: clamp(1.25rem, 1.7vw, 1.625rem);
-  --step-heading: 1.75rem;
-  --step-display: clamp(3rem, 8.2vw, 8.25rem);
-
-  /* One pair of page margins; one gap between sections. */
-  --margin: 1rem;
-  --section-gap: clamp(6rem, 9vw, 8rem);
-
-  /* Motion */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
-  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
-  --t-press: 140ms;
-  --t-hover: 180ms;
-  --t-ui: 240ms;
-  --t-reveal: 800ms;
-}
-
-@media (width >= 48rem) {
-  :root {
-    --margin: 1.5rem;
-  }
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #0a1b25;
-  --surface: #0f2a3a;
-  --surface-2: #14344a;
-  --fg: #d9dcd6;
-  --muted: #97abb4;
-  --accent: #81c3d7;
-  --accent-fg: #16425b;
-  --highlight: #3a7ca5;
-  --chip: #d9dcd6;
+  --bg: #101312;
+  --surface: #161a19;
+  --surface-2: #1d2221;
+  --fg: #e2e5e0;
+  --muted: #a3a9a4;
+  --subtle: #7c837e;
+  --line: #242a28;
+  --line-strong: #343b38;
+  --accent: #7cc3c8;
+  --accent-fg: #0c1211;
+  --accent-soft: rgb(124 195 200 / 0.1);
+  --chip: #e4e7e1;
+  --glow: rgb(124 195 200 / 0.12);
+  --elevation: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -20px rgb(0 0 0 / 0.7);
+  --grain-opacity: 0.05;
 }
 
 @theme inline {
@@ -74,19 +57,20 @@
   --color-surface-2: var(--surface-2);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
   --color-chip: var(--chip);
 
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 
-  --text-small: var(--step-small);
-  --text-body: var(--step-body);
-  --text-lead: var(--step-lead);
-  --text-heading: var(--step-heading);
-  --text-display: var(--step-display);
+  --ease-out-expo: var(--ease-expo);
+  --ease-spring: var(--ease-bounce);
 
-  --ease-out: var(--ease-out);
+  --shadow-soft: var(--elevation);
 }
 
 /* ------------------------------------------------------------------ */
@@ -95,7 +79,6 @@
 @layer base {
   html {
     background: var(--bg);
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -104,29 +87,14 @@
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-    font-size: var(--step-body);
-    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3 {
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
-
-  a {
-    color: inherit;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--highlight);
-    color: var(--fg);
+    background: var(--accent);
+    color: var(--accent-fg);
   }
 
   :focus-visible {
@@ -134,192 +102,61 @@
     outline-offset: 3px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+  /* Soft paper grain — barely there, takes the digital glare off flat colour. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 }
 
 /* ------------------------------------------------------------------ */
 /*  Utilities                                                          */
 /* ------------------------------------------------------------------ */
-@utility page {
-  padding-inline: var(--margin);
+@utility shell {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
 }
 
-/* Underlined text link that answers the pointer. */
-@utility text-link {
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
-  transition: text-underline-offset var(--t-hover) var(--ease-out), color var(--t-hover) ease;
+/* Underline that draws itself in from the left on hover. */
+@utility link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s var(--ease-expo);
 
   &:hover,
   &:focus-visible {
-    text-underline-offset: 0.4em;
-    color: var(--accent);
-  }
-}
-
-/* The one button shape on the page: square corners, one flat fill. */
-@utility button {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  gap: 0.5rem;
-  padding-inline: 1.25rem;
-  background: var(--accent);
-  color: var(--accent-fg);
-  font-weight: 500;
-  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
-
-  &:hover {
-    background: var(--fg);
-    color: var(--bg);
-  }
-  &:active {
-    transform: scale(0.97);
+    background-size: 100% 1px;
   }
 }
 
 /* ------------------------------------------------------------------ */
-/*  Frames                                                             */
-/*  A picture plus the flat colour strip that names its project.       */
+/*  Theme toggle icons                                                 */
 /* ------------------------------------------------------------------ */
-.frame {
-  display: block;
-  overflow: hidden;
-  background: var(--chip);
-  cursor: zoom-in;
+.theme-icon {
+  transition:
+    transform 0.7s var(--ease-bounce),
+    opacity 0.35s ease;
 }
-.frame img {
-  display: block;
-  transition: transform 600ms var(--ease-soft);
-}
-@media (hover: hover) and (pointer: fine) {
-  .frame:hover img,
-  .frame:focus-visible img {
-    transform: scale(1.04);
-  }
-}
-.strip {
-  display: block;
-  height: 1.75rem;
-  padding-inline: 0.5rem;
-  overflow: hidden;
-  background: var(--strip);
-  color: var(--strip-ink);
-  font-size: var(--step-small);
-  line-height: 1.75rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+:root:not([data-theme="dark"]) .theme-icon--sun,
+:root[data-theme="dark"] .theme-icon--moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
 }
 
-/* Work strips: hovering one project's frames quiets the others' pictures. */
-@media (hover: hover) and (pointer: fine) {
-  .work-list:has(.work-frames:hover) .work-frames:not(:hover) .frame {
-    opacity: 0.4;
-  }
-  .work-frames .frame {
-    transition: opacity var(--t-hover) ease;
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/*  Motion. Hidden states apply only under html.js (set in <head>), so */
-/*  everything is visible if scripts never run.                        */
-/* ------------------------------------------------------------------ */
-@media (prefers-reduced-motion: no-preference) {
-  /* Hero load: four things, one gesture. */
-  .js [data-rise] {
-    opacity: 0;
-    transform: translateY(18px);
-    animation: rise var(--t-reveal) var(--ease-out) forwards;
-    animation-delay: calc(var(--i, 0) * 90ms + 120ms);
-  }
-
-  /* Section entrances, in reading order once each part enters. */
-  .js [data-reveal] {
-    opacity: 0;
-    transform: translateY(24px);
-    transition:
-      opacity 450ms var(--ease-out),
-      transform 600ms var(--ease-out);
-    transition-delay: calc(min(var(--i, 0), 6) * 50ms);
-  }
-  .js [data-reveal].is-in {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* Pictures open from below their own edge instead of fading. */
-  .js [data-unmask] {
-    clip-path: inset(100% 0 0 0);
-    transition: clip-path 550ms var(--ease-in-out);
-    transition-delay: calc(min(var(--i, 0), 4) * 40ms);
-  }
-  .js [data-unmask].is-in {
-    clip-path: inset(0);
-  }
-
-  /* Signature move: the Finwise recording opens like a shutter. */
-  .js .shutter {
-    clip-path: inset(0 0 100% 0);
-    transition: clip-path 1100ms var(--ease-in-out);
-  }
-  .js .shutter video {
-    transform: scale(1.12);
-    transition: transform 1500ms var(--ease-soft);
-  }
-  .js .shutter.is-in {
-    clip-path: inset(0);
-  }
-  .js .shutter.is-in video {
-    transform: none;
-  }
-}
-
-@keyframes rise {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Footer greeting: each new language rises into place. */
-@keyframes greet {
-  from {
-    opacity: 0;
-    transform: translateY(40%);
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .greet {
-    animation: greet 600ms var(--ease-out) both;
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/*  Viewer (the enlarged frame)                                        */
-/* ------------------------------------------------------------------ */
-.viewer::backdrop {
-  /* A literal colour: custom properties do not reach ::backdrop in every browser. */
-  background: rgb(10 27 37 / 0.94);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .viewer[open] {
-    animation: viewer-in var(--t-ui) var(--ease-out);
-  }
-}
-@keyframes viewer-in {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-}
-
-/* Theme switch: the new theme spreads from the button (View Transitions). */
+/* Circular reveal when switching themes (View Transitions API). */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -329,4 +166,77 @@ html[data-switching] *,
 html[data-switching] *::before,
 html[data-switching] *::after {
   transition: none !important;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ambient motion                                                     */
+/* ------------------------------------------------------------------ */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6%, -4%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-5%, 5%, 0) scale(0.96);
+  }
+}
+.aurora {
+  animation: drift 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee 60s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.scroll-cue {
+  animation: scroll-cue 2.4s var(--ease-expo) infinite;
+}
+
+/* Mobile menu open: freeze the page underneath. */
+html.menu-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .marquee-track,
+  .scroll-cue {
+    animation: none !important;
+  }
+  .theme-icon {
+    transition: opacity 0.2s ease;
+  }
 }

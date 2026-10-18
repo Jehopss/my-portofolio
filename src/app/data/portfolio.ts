@@ -52,9 +52,10 @@ export const profile = {
 };
 
 export const navItems = [
-  { id: "work", label: "Work" },
   { id: "about", label: "About" },
-  { id: "tools", label: "Tools" },
+  { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ] as const;
 
@@ -170,31 +171,33 @@ export interface Skill {
   logo?: StaticImageData;
   /** Fallback line icon for tools without a usable official logo. */
   icon?: LucideIcon;
+  /** Brand tint used for the hover glow. Defaults to the site accent. */
+  color?: string;
   /** Landscape logos (wordmarks) get a wider box so they don't look tiny. */
   wide?: boolean;
 }
 
 export const skills: Skill[] = [
   // Languages
-  { name: "Python", kind: "Programming language", category: "Languages", logo: pythonLogo },
-  { name: "Java", kind: "Programming language", category: "Languages", logo: javaLogo },
-  { name: "PHP", kind: "Server-side language", category: "Languages", logo: phpLogo, wide: true },
-  { name: "HTML5", kind: "Markup language", category: "Languages", logo: html5Logo },
+  { name: "Python", kind: "Programming language", category: "Languages", logo: pythonLogo, color: "#3776ab" },
+  { name: "Java", kind: "Programming language", category: "Languages", logo: javaLogo, color: "#e76f00" },
+  { name: "PHP", kind: "Server-side language", category: "Languages", logo: phpLogo, color: "#777bb4", wide: true },
+  { name: "HTML5", kind: "Markup language", category: "Languages", logo: html5Logo, color: "#e34f26" },
 
   // Libraries & frameworks
-  { name: "Matplotlib", kind: "Data visualization", category: "Libraries", logo: matplotlibLogo },
-  { name: "scikit-learn", kind: "Machine learning", category: "Libraries", logo: sklearnLogo, wide: true },
+  { name: "Matplotlib", kind: "Data visualization", category: "Libraries", logo: matplotlibLogo, color: "#11557c" },
+  { name: "scikit-learn", kind: "Machine learning", category: "Libraries", logo: sklearnLogo, color: "#f7931e", wide: true },
   { name: "NLTK", kind: "Natural language processing", category: "Libraries", icon: Languages },
-  { name: "OpenCV", kind: "Computer vision (cv2)", category: "Libraries", logo: opencvLogo },
-  { name: "Biopython", kind: "Bioinformatics", category: "Libraries", logo: biopythonLogo },
-  { name: "Tailwind CSS", kind: "CSS framework", category: "Libraries", logo: tailwindLogo },
+  { name: "OpenCV", kind: "Computer vision (cv2)", category: "Libraries", logo: opencvLogo, color: "#5c3ee8" },
+  { name: "Biopython", kind: "Bioinformatics", category: "Libraries", logo: biopythonLogo, color: "#37709f" },
+  { name: "Tailwind CSS", kind: "CSS framework", category: "Libraries", logo: tailwindLogo, color: "#06b6d4" },
 
   // Tools & platforms
-  { name: "MySQL", kind: "Relational database", category: "Tools", logo: mysqlLogo },
-  { name: "RStudio", kind: "IDE for R", category: "Tools", logo: rstudioLogo },
+  { name: "MySQL", kind: "Relational database", category: "Tools", logo: mysqlLogo, color: "#00758f" },
+  { name: "RStudio", kind: "IDE for R", category: "Tools", logo: rstudioLogo, color: "#75aadb" },
   { name: "RapidMiner", kind: "Data science platform", category: "Tools", icon: Workflow },
-  { name: "Figma", kind: "Interface design", category: "Tools", logo: figmaLogo },
-  { name: "Cisco Packet Tracer", kind: "Network simulation", category: "Tools", logo: ciscoLogo, wide: true },
+  { name: "Figma", kind: "Interface design", category: "Tools", logo: figmaLogo, color: "#a259ff" },
+  { name: "Cisco Packet Tracer", kind: "Network simulation", category: "Tools", logo: ciscoLogo, color: "#1ba0d7", wide: true },
   { name: "Python Power Electronics", kind: "Circuit simulation", category: "Tools", icon: Zap },
 ];
 
@@ -215,131 +218,105 @@ export const expertise: { name: string; icon: LucideIcon }[] = [
 /* ------------------------------------------------------------------ */
 /*  Projects                                                           */
 /* ------------------------------------------------------------------ */
-export type ProjectArea = "Interface design" | "Machine learning";
+export const projectAreas = ["UI/UX", "Machine Learning"] as const;
+export type ProjectArea = (typeof projectAreas)[number];
+
+/** A screen recording that plays in the gallery, before the project's pictures. */
+export interface Demo {
+  /** Same clip twice: WebM (VP9) first, MP4 (H.264) for browsers without VP9. */
+  sources: { src: string; type: string }[];
+  poster: Frame;
+  alt: string;
+}
 
 export interface Project {
   title: string;
-  /** Short name for the colour strips, where the full title would be cut off. */
-  label?: string;
-  /** Three words, shown under the project's strip of frames. */
-  kind: string;
   description: string;
-  /** Year the project was made. */
   year: string;
+  /** What kind of work it was; drives the project filter. */
   areas: ProjectArea[];
-  /** One of the five palette colours; it marks this project's frames everywhere. */
-  colour: { fill: string; ink: string };
-  /** The project's strip in the Work section. */
-  frames: Frame[];
-  /** Further pictures that appear only on the sheet at the top of the page. */
-  moreFrames?: Frame[];
+  /** Pictures from the project itself, shown as thumbnails that open in a gallery. */
+  gallery: Frame[];
+  demo?: Demo;
   repo: string;
   figma?: string;
 }
 
-// The Coolors palette, one colour per project.
-const indigo = { fill: "#16425b", ink: "#d9dcd6" };
-const lapis = { fill: "#2f6690", ink: "#ffffff" };
-const cerulean = { fill: "#3a7ca5", ink: "#ffffff" };
-const sky = { fill: "#81c3d7", ink: "#16425b" };
-const platinum = { fill: "#d9dcd6", ink: "#16425b" };
-
 export const projects: Project[] = [
   {
+    title: "Serenity",
+    description: "A platform for psychological consultation.",
+    year: "2024",
+    areas: ["UI/UX"],
+    gallery: [frames.seLake, frames.seLandscape],
+    repo: "https://github.com/dheovanwa/Serenity",
+    figma:
+      "https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1",
+  },
+  {
+    title: "DeepPlan",
+    description:
+      "An application that uses a machine learning model to predict construction project estimates.",
+    year: "2025",
+    areas: ["Machine Learning", "UI/UX"],
+    gallery: [frames.dpIcon],
+    repo: "https://github.com/KepinTheNoob/DeepPlan",
+    figma:
+      "https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1",
+  },
+  {
     title: "Finwise",
-    kind: "Personal finance manager",
     description: "A personal finance management application that helps you manage your money.",
     year: "2025",
-    areas: ["Interface design"],
-    colour: indigo,
-    frames: [
+    areas: ["UI/UX"],
+    demo: {
+      // Relative on purpose: it resolves under the GitHub Pages base path as well.
+      sources: [
+        { src: "work/finwise-loop.webm", type: "video/webm" },
+        { src: "work/finwise-loop.mp4", type: "video/mp4" },
+      ],
+      poster: frames.fwDashboard,
+      alt: "Screen recording of Finwise: the dashboard, the recent transactions and the categories page",
+    },
+    gallery: [
       frames.fwDashboard,
       frames.fwCategories,
       frames.fwAddCategory,
       frames.fwTransactions,
       frames.fwAddTransaction,
       frames.fwBudgets,
-    ],
-    moreFrames: [
-      frames.fwRecent,
-      frames.fwColour,
-      frames.fwDate,
-      frames.fwBudgetCards,
       frames.fwEditBudget,
-      frames.fwChart,
     ],
     repo: "https://github.com/KepinTheNoob/Finwise",
     figma:
       "https://www.figma.com/design/Wd2WWWV3JmNr2bRtlchsj2/Finwise?node-id=0-1&t=vxIEvOYqt8LG0HZf-1",
   },
   {
-    title: "Supreme Court Judgement Classification",
-    label: "Supreme Court",
-    kind: "Case outcome classifier",
-    description:
-      "A machine learning model that classifies whether a person is guilty based on the facts of the case.",
-    year: "2025",
-    areas: ["Machine learning"],
-    colour: lapis,
-    frames: [
-      frames.scBalance,
-      frames.scWords,
-      frames.scCloud,
-      frames.scLengths,
-      frames.scIssues,
-      frames.scVarianceTotal,
-    ],
-    moreFrames: [frames.scCloudRaw, frames.scBoxplot, frames.scVariance],
-    repo: "https://github.com/dheovanwa/Supreme-court-judgement-classification",
-  },
-  {
-    title: "Serenity",
-    kind: "Psychological consultation platform",
-    description: "A platform for psychological consultation.",
-    year: "2024",
-    areas: ["Interface design"],
-    colour: cerulean,
-    frames: [frames.seLake, frames.seLandscape],
-    repo: "https://github.com/dheovanwa/Serenity",
-    figma:
-      "https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1",
-  },
-  {
     title: "NoFake",
-    kind: "Fake news detector",
     description:
       "A machine learning model that determines whether a news article is fake or factual.",
     year: "2025",
-    areas: ["Machine learning", "Interface design"],
-    colour: sky,
-    frames: [frames.nfLogo],
+    areas: ["Machine Learning", "UI/UX"],
+    gallery: [frames.nfLogo],
     repo: "https://github.com/XQVWMM/NoFake",
     figma:
       "https://www.figma.com/design/cc5QuRPuLykKp3jindjRlE/NoFake?node-id=35-277&t=oliso9qhFY7kycGQ-1",
   },
   {
-    title: "DeepPlan",
-    kind: "Construction estimate predictor",
+    title: "Supreme Court Judgement Classification",
     description:
-      "An application that uses a machine learning model to predict construction project estimates.",
+      "A machine learning model that classifies whether a person is guilty based on the facts of the case.",
     year: "2025",
-    areas: ["Machine learning", "Interface design"],
-    colour: platinum,
-    frames: [frames.dpIcon],
-    repo: "https://github.com/KepinTheNoob/DeepPlan",
-    figma:
-      "https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1",
+    areas: ["Machine Learning"],
+    gallery: [
+      frames.scBalance,
+      frames.scWords,
+      frames.scCloud,
+      frames.scLengths,
+      frames.scBoxplot,
+      frames.scIssues,
+      frames.scVarianceTotal,
+    ],
+    repo: "https://github.com/dheovanwa/Supreme-court-judgement-classification",
   },
-];
-
-/** Every picture on the sheet at the top of the page, labelled with its project. */
-export const sheet: { frame: Frame; label: string; colour: Project["colour"] }[] = [
-  { frame: frames.portrait, label: "Jonathan", colour: platinum },
-  ...projects.flatMap((project) =>
-    [...project.frames, ...(project.moreFrames ?? [])].map((frame) => ({
-      frame,
-      label: project.label ?? project.title,
-      colour: project.colour,
-    })),
-  ),
 ];

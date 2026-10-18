@@ -1,100 +1,211 @@
-import type { CSSProperties } from "react";
+"use client";
 
-import Frame from "./Frame";
-import ThemeToggle from "./ThemeToggle";
-import { contacts, education, profile, sheet, socials } from "../data/portfolio";
+import Image from "next/image";
+import { Fragment, useRef, type PointerEvent } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-/** Vertical starting offsets, so the sheet's rows never line up. */
-const OFFSETS = [0, -90, -40, -130, -20, -70];
-/** How fast each column drifts while the page scrolls (see Motion.tsx). */
-const DRIFT = [0.06, 0.13, 0.04, 0.1, 0.08, 0.15];
+import portrait from "../assets/profile.webp";
+import Greeting from "./Greeting";
+import { EASE } from "./motion";
+import { profile, socials } from "../data/portfolio";
 
-const rise = (i: number) => ({ "--i": i }) as CSSProperties;
+/** Shared entrance: fade up out of a light blur. */
+const intro = (delay: number) => ({
+  initial: { opacity: 0, y: 18, filter: "blur(8px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  transition: { duration: 1, ease: EASE, delay },
+});
 
-/** Deal the sheet's frames into `count` columns, left to right. */
-function deal(count: number) {
-  const columns = Array.from({ length: count }, () => [] as typeof sheet);
-  sheet.forEach((item, i) => columns[i % count].push(item));
-  return columns;
-}
+/** Portrait card that wipes in, then tilts gently toward the cursor. */
+function Portrait() {
+  const card = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
 
-function Sheet({ count, className, offsets }: { count: number; className: string; offsets: number[] }) {
+  const px = useMotionValue(0.5);
+  const py = useMotionValue(0.5);
+  const spring = { stiffness: 150, damping: 18, mass: 0.6 };
+  const rotateX = useSpring(useTransform(py, [0, 1], [7, -7]), spring);
+  const rotateY = useSpring(useTransform(px, [0, 1], [-9, 9]), spring);
+  const glareX = useTransform(px, [0, 1], [10, 90]);
+  const glareY = useTransform(py, [0, 1], [5, 95]);
+  const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgb(255 255 255 / 0.3), transparent 55%)`;
+  const glareOpacity = useSpring(0, { stiffness: 180, damping: 26 });
+
+  const onMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (reduceMotion || event.pointerType !== "mouse" || !card.current) return;
+    const rect = card.current.getBoundingClientRect();
+    px.set((event.clientX - rect.left) / rect.width);
+    py.set((event.clientY - rect.top) / rect.height);
+    glareOpacity.set(1);
+  };
+
+  const onLeave = () => {
+    px.set(0.5);
+    py.set(0.5);
+    glareOpacity.set(0);
+  };
+
   return (
-    <div className={`flex gap-3 ${className}`}>
-      {deal(count).map((column, c) => (
-        <div key={c} data-drift={DRIFT[c]} className="flex min-w-0 flex-1 flex-col gap-3" style={{ marginTop: offsets[c] }}>
-          {column.map(({ frame, label, colour }, i) => (
-            <Frame
-              key={frame.id}
-              frame={frame}
-              group="sheet"
-              label={label}
-              colour={colour}
-              priority={i < 2}
+    <div className="relative mx-auto w-full max-w-[22rem] [perspective:1100px]">
+      <div
+        aria-hidden
+        className="absolute -inset-12 -z-10 rounded-full bg-[radial-gradient(closest-side,var(--glow),transparent)] blur-2xl"
+      />
+      <motion.div
+        ref={card}
+        onPointerMove={onMove}
+        onPointerLeave={onLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        initial={{ opacity: 0, y: 40, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1.3, ease: EASE, delay: 0.35 }}
+        className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-line bg-surface shadow-soft"
+      >
+        <motion.div
+          className="absolute inset-0"
+          initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
+          animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+          transition={{ duration: 1.4, ease: EASE, delay: 0.45 }}
+        >
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.25 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 2, ease: EASE, delay: 0.45 }}
+          >
+            <Image
+              src={portrait}
+              alt="Portrait of Jonathan Hopi Pranata"
+              fill
+              priority
+              sizes="(min-width: 768px) 352px, 100vw"
+              className="object-cover dark:brightness-[0.92] dark:saturate-[0.85]"
             />
-          ))}
-        </div>
-      ))}
+          </motion.div>
+        </motion.div>
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{ background: glare, opacity: glareOpacity }}
+        />
+      </motion.div>
     </div>
   );
 }
 
-/**
- * First screen: the name at display size, four short blocks (who, what,
- * where to reach him, the action), then the contact sheet of every frame.
- */
 export default function Hero() {
-  const email = contacts.find((c) => c.label === "Personal email") ?? contacts[0];
+  const words = profile.name.split(" ");
 
   return (
-    <header id="top">
-      <div className="page pt-6 md:pt-8">
-        <h1 data-rise style={rise(0)} className="text-display leading-[0.92] font-medium tracking-[-0.045em]">
-          Jonathan Hopi Pranata
-        </h1>
+    <section id="top" className="relative isolate overflow-hidden">
+      {/* Ambient light — two slow-drifting blurred glows. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="aurora absolute -top-32 right-[-45%] size-[26rem] rounded-full bg-[radial-gradient(closest-side,var(--glow),transparent)] blur-3xl md:-top-48 md:right-[-12%] md:size-[38rem]" />
+        <div className="aurora absolute bottom-[-20%] left-[-40%] size-[22rem] rounded-full bg-[radial-gradient(closest-side,var(--glow),transparent)] opacity-60 blur-3xl [animation-delay:-11s] md:bottom-[-25%] md:left-[-18%] md:size-[30rem]" />
+      </div>
 
-        <div data-rise style={rise(1)} className="mt-6 grid gap-x-6 gap-y-4 md:mt-8 md:grid-cols-12">
-          <p className="md:col-span-3">
-            Computer Science student in the {profile.program} at {profile.school}, now in the{" "}
-            {education.status.toLowerCase()}.
-          </p>
-          <p className="md:col-span-4">
-            I design interfaces in Figma and build the machine-learning models behind them. Below are frames from
-            five of those projects; tap one to see it full size.
-          </p>
-          <p className="md:col-span-3">
-            <a href={email.href} className="text-link">
-              {email.value}
-            </a>
-            <br />
-            {socials.map(({ label, href }, i) => (
-              <span key={label}>
-                {i > 0 && " and "}
-                <a href={href} target="_blank" rel="noopener noreferrer" className="text-link">
-                  {label}
-                </a>
-              </span>
+      <div className="shell grid min-h-[100svh] items-center gap-12 pt-28 pb-24 md:grid-cols-12 md:gap-10 md:pt-32">
+        <div className="md:col-span-7">
+          <motion.div {...intro(0.2)} className="mb-8 md:hidden">
+            <Image
+              src={portrait}
+              alt=""
+              priority
+              sizes="80px"
+              className="size-20 rounded-full object-cover object-[50%_18%] ring-1 ring-line dark:brightness-[0.92] dark:saturate-[0.85]"
+            />
+          </motion.div>
+
+          <motion.div {...intro(0.25)}>
+            <Greeting className="text-xl text-muted md:text-2xl" />
+          </motion.div>
+
+          <h1 className="mt-4 text-[clamp(2.9rem,6.8vw,5.9rem)] leading-[1.02] font-medium tracking-[-0.045em] text-balance text-fg">
+            {words.map((word, i) => (
+              <Fragment key={word}>
+                {i > 0 && " "}
+                <span className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom">
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%" }}
+                    transition={{ duration: 1.1, ease: EASE, delay: 0.35 + i * 0.09 }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              </Fragment>
             ))}
-          </p>
-          <div className="flex items-start gap-3 md:col-span-2 md:justify-end">
-            <a href="#work" className="button">
-              See the work
+          </h1>
+
+          <motion.p
+            {...intro(0.75)}
+            className="mt-8 max-w-xl text-[1.0625rem] leading-relaxed text-pretty text-muted md:text-xl"
+          >
+            {profile.summary}
+          </motion.p>
+
+          <motion.div {...intro(0.9)} className="mt-10 flex flex-wrap items-center gap-3">
+            <a
+              href="#projects"
+              className="group inline-flex h-12 items-center gap-2 rounded-full bg-fg pr-5 pl-6 text-sm font-medium text-bg transition-[translate,box-shadow] duration-500 ease-out-expo hover:-translate-y-0.5 hover:shadow-soft"
+            >
+              View projects
+              <ArrowRight
+                aria-hidden
+                className="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-1"
+              />
             </a>
-            <ThemeToggle />
-          </div>
+            <a
+              href="#contact"
+              className="inline-flex h-12 items-center rounded-full border border-line-strong px-6 text-sm font-medium text-fg transition-colors duration-300 hover:bg-surface"
+            >
+              Get in touch
+            </a>
+            {/* Kept in one group so the icons always wrap together on narrow screens. */}
+            <div className="flex items-center gap-1">
+              <span aria-hidden className="mr-2 ml-1 hidden h-6 w-px bg-line sm:block" />
+              {socials.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="grid size-12 place-items-center rounded-full text-muted transition-colors duration-300 hover:bg-surface hover:text-fg"
+                >
+                  <Icon aria-hidden className="size-5" strokeWidth={1.6} />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="hidden md:col-span-5 md:block">
+          <Portrait />
         </div>
       </div>
 
-      <div
-        data-rise
-        style={rise(2)}
-        aria-label="Contact sheet of project frames"
-        role="region"
-        className="page mt-8 h-[30rem] overflow-hidden md:mt-10 md:h-[38rem]"
+      <motion.a
+        href="#about"
+        {...intro(1.4)}
+        aria-label="Scroll to About"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-muted md:flex"
       >
-        <Sheet count={2} offsets={[0, -60]} className="md:hidden" />
-        <Sheet count={6} offsets={OFFSETS} className="hidden md:flex" />
-      </div>
-    </header>
+        <span className="text-[0.7rem] font-medium tracking-[0.3em] uppercase">Scroll</span>
+        <span className="relative h-12 w-px overflow-hidden bg-line">
+          <span className="scroll-cue absolute inset-0 bg-fg/70" />
+        </span>
+      </motion.a>
+    </section>
   );
 }
