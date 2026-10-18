@@ -2,15 +2,26 @@
 
 import Image from "next/image";
 import { useRef, useState, type PointerEvent, type ReactNode } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Figma, Github } from "lucide-react";
 
 import Gallery, { type GalleryItem } from "./Gallery";
-import { fadeUp, stagger } from "./motion";
+import { EASE, fadeUp } from "./motion";
 import { projectAreas, projects, type Project, type ProjectArea } from "../data/portfolio";
 
 type Filter = "All" | ProjectArea;
 const filters: Filter[] = ["All", ...projectAreas];
+
+/** Each row fades up a beat after the one above it (`custom` is its place in the list). */
+const row: Variants = {
+  hidden: fadeUp.hidden,
+  show: (place: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: EASE, delay: place * 0.08 },
+  }),
+};
 
 const countFor = (filter: Filter) =>
   filter === "All" ? projects.length : projects.filter((project) => project.areas.includes(filter)).length;
@@ -84,6 +95,9 @@ function Thumbnails({
  */
 export default function ProjectList() {
   const [filter, setFilter] = useState<Filter>("All");
+  // Rows animate on their own state rather than inheriting it from the list, so
+  // rows that come back after a filter change still fade in.
+  const [revealed, setRevealed] = useState(false);
   const [open, setOpen] = useState<{ project: number; index: number; origin: number } | null>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
 
@@ -141,19 +155,20 @@ export default function ProjectList() {
 
       <motion.ul
         className="border-t border-line"
-        variants={stagger(0.08)}
-        initial="hidden"
-        whileInView="show"
+        onViewportEnter={() => setRevealed(true)}
         viewport={{ once: true, amount: 0.15 }}
       >
         <AnimatePresence mode="popLayout" initial={false}>
-          {shown.map(({ project, number }) => {
+          {shown.map(({ project, number }, place) => {
             const items = galleryFor(project);
             return (
               <motion.li
                 key={project.title}
                 layout
-                variants={fadeUp}
+                variants={row}
+                custom={place}
+                initial="hidden"
+                animate={revealed ? "show" : "hidden"}
                 exit={{ opacity: 0, scale: 0.98, filter: "blur(4px)", transition: { duration: 0.25 } }}
                 transition={{ layout: { type: "spring", stiffness: 320, damping: 34 } }}
                 onPointerMove={trackPointer}
