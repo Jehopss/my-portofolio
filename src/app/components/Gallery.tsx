@@ -13,8 +13,6 @@ export interface GalleryItem {
   alt: string;
   thumb: StaticImageData;
   full: StaticImageData;
-  /** A screen recording to play instead of the still, in the order to try. */
-  video?: { src: string; type: string }[];
 }
 
 /**
@@ -74,7 +72,7 @@ export default function Gallery({
       else if (event.key === "ArrowLeft") go(-1);
       else if (event.key === "Tab" && dialog.current) {
         // Keep Tab inside the viewer.
-        const focusable = dialog.current.querySelectorAll<HTMLElement>("button, video[controls]");
+        const focusable = dialog.current.querySelectorAll<HTMLElement>("button");
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (event.shiftKey && document.activeElement === first) {
@@ -159,30 +157,13 @@ export default function Gallery({
             className="relative max-h-full overflow-hidden rounded-xl bg-[#161a19] shadow-2xl"
             style={{ aspectRatio: `${ratio}`, width: `min(100%, calc((100svh - 11rem) * ${ratio}))` }}
           >
-            {item.video ? (
-              <video
-                poster={item.full.src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                aria-label={item.alt}
-                className="size-full"
-              >
-                {item.video.map((source) => (
-                  <source key={source.src} src={source.src} type={source.type} />
-                ))}
-              </video>
-            ) : (
-              <Image
-                src={item.full}
-                alt={item.alt}
-                sizes="90vw"
-                draggable={false}
-                className="pointer-events-none size-full object-contain select-none"
-              />
-            )}
+            <Image
+              src={item.full}
+              alt={item.alt}
+              sizes="90vw"
+              draggable={false}
+              className="pointer-events-none size-full object-contain select-none"
+            />
           </motion.div>
         </AnimatePresence>
 

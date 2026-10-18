@@ -25,17 +25,23 @@ export default function Greeting({ className = "" }: { className?: string }) {
     setIndex(0);
   }, []);
 
+  // Rotates on its own; a click jumps to the next language and restarts the timer.
   useEffect(() => {
     if (list.length < 2) return;
     const timer = window.setInterval(() => setIndex((i) => (i + 1) % list.length), 2800);
     return () => window.clearInterval(timer);
-  }, [list]);
+  }, [list, index]);
 
   const text = list[index % list.length];
 
   return (
-    <p className={`relative h-[1.35em] overflow-hidden ${className}`}>
-      <span className="sr-only">{list[0]}</span>
+    <button
+      type="button"
+      onClick={() => setIndex((i) => (i + 1) % list.length)}
+      title="Say hello in another language"
+      className={`group relative block h-[1.35em] w-full cursor-pointer overflow-hidden text-left transition-colors duration-300 hover:text-accent ${className}`}
+    >
+      <span className="sr-only">{list[0]} Show the greeting in another language.</span>
       <AnimatePresence initial={false}>
         <motion.span
           key={text}
@@ -49,6 +55,6 @@ export default function Greeting({ className = "" }: { className?: string }) {
           {text}
         </motion.span>
       </AnimatePresence>
-    </p>
+    </button>
   );
 }

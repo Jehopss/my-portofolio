@@ -26,8 +26,7 @@ areas of expertise and projects. Add an item to the right array and the layout p
   `areas` drives the project filter; `gallery` lists pictures from `data/frames.ts`.
 - **New picture:** save two WebP files in `src/app/assets/work/` (`name-thumb.webp` about 420px
   tall, `name.webp` up to 1600px wide), add a line to `src/app/data/frames.ts` with a sentence
-  saying what it shows, then add it to the project's `gallery`. A screen recording goes in
-  `public/work/` (WebM and MP4) and in the project's `demo`.
+  saying what it shows, then add it to the project's `gallery`.
 
 ## Structure
 
@@ -41,16 +40,11 @@ src/app/
 ├─ components/         # Header, Hero, Skills, Projects, Contact, …
 ├─ assets/             # profile photo, skill logos, project pictures (assets/work)
 └─ fonts/              # Outfit (SIL OFL), self-hosted
-public/work/           # the Finwise screen recording
 ```
 
 Skill logos come from [Devicon](https://devicon.dev) (MIT), [Simple Icons](https://simpleicons.org)
 (CC0) and the [Biopython](https://biopython.org) project; they remain trademarks of their owners.
 
-Project pictures come from each project's own repository: the Finwise screens and recording
-from the preview GIF in [KepinTheNoob/Finwise](https://github.com/KepinTheNoob/Finwise), the
-plots from the notebook in
-[dheovanwa/Supreme-court-judgement-classification](https://github.com/dheovanwa/Supreme-court-judgement-classification),
-Serenity's background illustration from [dheovanwa/Serenity](https://github.com/dheovanwa/Serenity),
-the NoFake logo from [XQVWMM/NoFake](https://github.com/XQVWMM/NoFake) and the DeepPlan icon from
-[KepinTheNoob/DeepPlan](https://github.com/KepinTheNoob/DeepPlan).
+Project pictures come from each project's own repository: the plots from the notebook in
+[dheovanwa/Supreme-court-judgement-classification](https://github.com/dheovanwa/Supreme-court-judgement-classification)
+and the logo from [XQVWMM/NoFake](https://github.com/XQVWMM/NoFake).

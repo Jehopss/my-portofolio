@@ -221,14 +221,6 @@ export const expertise: { name: string; icon: LucideIcon }[] = [
 export const projectAreas = ["UI/UX", "Machine Learning"] as const;
 export type ProjectArea = (typeof projectAreas)[number];
 
-/** A screen recording that plays in the gallery, before the project's pictures. */
-export interface Demo {
-  /** Same clip twice: WebM (VP9) first, MP4 (H.264) for browsers without VP9. */
-  sources: { src: string; type: string }[];
-  poster: Frame;
-  alt: string;
-}
-
 export interface Project {
   title: string;
   description: string;
@@ -236,8 +228,7 @@ export interface Project {
   /** What kind of work it was; drives the project filter. */
   areas: ProjectArea[];
   /** Pictures from the project itself, shown as thumbnails that open in a gallery. */
-  gallery: Frame[];
-  demo?: Demo;
+  gallery?: Frame[];
   repo: string;
   figma?: string;
 }
@@ -248,7 +239,6 @@ export const projects: Project[] = [
     description: "A platform for psychological consultation.",
     year: "2024",
     areas: ["UI/UX"],
-    gallery: [frames.seLake, frames.seLandscape],
     repo: "https://github.com/dheovanwa/Serenity",
     figma:
       "https://www.figma.com/design/0eXmjIK9EGxeDn5FmNOpOR/Serenity?node-id=832-395&t=UZhErHm7G5jZljYc-1",
@@ -259,7 +249,6 @@ export const projects: Project[] = [
       "An application that uses a machine learning model to predict construction project estimates.",
     year: "2025",
     areas: ["Machine Learning", "UI/UX"],
-    gallery: [frames.dpIcon],
     repo: "https://github.com/KepinTheNoob/DeepPlan",
     figma:
       "https://www.figma.com/design/fqqgGGwBSjzptf3UUZCbiI/DeepPlan?node-id=0-1&t=NfPyGB3j8O50SEY6-1",
@@ -269,24 +258,6 @@ export const projects: Project[] = [
     description: "A personal finance management application that helps you manage your money.",
     year: "2025",
     areas: ["UI/UX"],
-    demo: {
-      // Relative on purpose: it resolves under the GitHub Pages base path as well.
-      sources: [
-        { src: "work/finwise-loop.webm", type: "video/webm" },
-        { src: "work/finwise-loop.mp4", type: "video/mp4" },
-      ],
-      poster: frames.fwDashboard,
-      alt: "Screen recording of Finwise: the dashboard, the recent transactions and the categories page",
-    },
-    gallery: [
-      frames.fwDashboard,
-      frames.fwCategories,
-      frames.fwAddCategory,
-      frames.fwTransactions,
-      frames.fwAddTransaction,
-      frames.fwBudgets,
-      frames.fwEditBudget,
-    ],
     repo: "https://github.com/KepinTheNoob/Finwise",
     figma:
       "https://www.figma.com/design/Wd2WWWV3JmNr2bRtlchsj2/Finwise?node-id=0-1&t=vxIEvOYqt8LG0HZf-1",

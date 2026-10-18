@@ -188,20 +188,6 @@ html[data-switching] *::after {
   will-change: transform;
 }
 
-@keyframes marquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-.marquee-track {
-  animation: marquee 60s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
 
 @keyframes scroll-cue {
   0% {
@@ -232,7 +218,6 @@ html.menu-open {
 
 @media (prefers-reduced-motion: reduce) {
   .aurora,
-  .marquee-track,
   .scroll-cue {
     animation: none !important;
   }

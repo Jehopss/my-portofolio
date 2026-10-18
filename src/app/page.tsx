@@ -1,5 +1,6 @@
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Cursor from "./components/Cursor";
 import Education from "./components/Education";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -24,6 +25,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <Cursor />
     </>
   );
 }

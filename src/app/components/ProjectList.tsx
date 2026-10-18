@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Figma, Github, Play } from "lucide-react";
+import { ArrowUpRight, Figma, Github } from "lucide-react";
 
 import Gallery, { type GalleryItem } from "./Gallery";
 import { fadeUp, stagger } from "./motion";
@@ -15,22 +15,14 @@ const filters: Filter[] = ["All", ...projectAreas];
 const countFor = (filter: Filter) =>
   filter === "All" ? projects.length : projects.filter((project) => project.areas.includes(filter)).length;
 
-/** The project's demo (if any) followed by its pictures, ready for the gallery. */
+/** The project's pictures, ready for the gallery. */
 function galleryFor(project: Project): GalleryItem[] {
-  return [
-    ...(project.demo
-      ? [
-          {
-            key: `${project.title}-demo`,
-            alt: project.demo.alt,
-            thumb: project.demo.poster.thumb,
-            full: project.demo.poster.full,
-            video: project.demo.sources,
-          },
-        ]
-      : []),
-    ...project.gallery.map((frame) => ({ key: `${project.title}-${frame.id}`, alt: frame.alt, thumb: frame.thumb, full: frame.full })),
-  ];
+  return (project.gallery ?? []).map((frame) => ({
+    key: `${project.title}-${frame.id}`,
+    alt: frame.alt,
+    thumb: frame.thumb,
+    full: frame.full,
+  }));
 }
 
 function IconLink({
@@ -73,19 +65,12 @@ function Thumbnails({
           <button
             type="button"
             onClick={(event) => onOpen(i, event.currentTarget)}
-            aria-label={item.video ? `Play the demo: ${item.alt}` : `View larger: ${item.alt}`}
+            aria-label={`View larger: ${item.alt}`}
             className="group/thumb relative block h-16 cursor-zoom-in overflow-hidden rounded-lg border border-line bg-surface transition-[border-color,translate,box-shadow] duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-soft sm:h-[4.5rem]"
           >
             <motion.div layoutId={`gallery-${item.key}`} className="h-full">
               <Image src={item.thumb} alt="" sizes="200px" className="h-full w-auto max-w-none" />
             </motion.div>
-            {item.video && (
-              <span aria-hidden className="absolute inset-0 grid place-items-center bg-black/35 transition-colors group-hover/thumb:bg-black/20">
-                <span className="grid size-8 place-items-center rounded-full bg-white/90 text-[#202321] transition-transform duration-500 ease-spring group-hover/thumb:scale-110">
-                  <Play className="size-3.5 translate-x-px" fill="currentColor" strokeWidth={0} />
-                </span>
-              </span>
-            )}
           </button>
         </li>
       ))}
@@ -209,13 +194,15 @@ export default function ProjectList() {
                       ))}
                     </p>
                     <p className="mt-2 max-w-xl leading-relaxed text-pretty text-muted">{project.description}</p>
-                    <Thumbnails
-                      items={items}
-                      onOpen={(index, button) => {
-                        opener.current = button;
-                        setOpen({ project: number, index, origin: index });
-                      }}
-                    />
+                    {items.length > 0 && (
+                      <Thumbnails
+                        items={items}
+                        onOpen={(index, button) => {
+                          opener.current = button;
+                          setOpen({ project: number, index, origin: index });
+                        }}
+                      />
+                    )}
                   </div>
 
                   <div className="relative z-10 col-start-2 mt-2 flex gap-2 sm:col-start-3 sm:row-start-1 sm:mt-0 sm:self-start">

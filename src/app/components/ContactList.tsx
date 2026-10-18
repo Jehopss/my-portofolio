@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 
+import Magnetic from "./Magnetic";
 import { EASE, fadeUp, stagger } from "./motion";
 import { contacts, socials } from "../data/portfolio";
 
@@ -110,19 +111,21 @@ export default function ContactList() {
       >
         {socials.map(({ label, href, icon: Icon }) => (
           <motion.li key={label} variants={fadeUp}>
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex h-11 items-center gap-2.5 rounded-full border border-line-strong px-5 text-sm font-medium text-fg transition-colors duration-300 hover:bg-surface"
-            >
-              <Icon aria-hidden className="size-4" strokeWidth={1.75} />
-              {label}
-              <ArrowUpRight
-                aria-hidden
-                className="size-3.5 text-muted transition-[translate,color] duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
-              />
-            </a>
+            <Magnetic>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex h-11 items-center gap-2.5 rounded-full border border-line-strong px-5 text-sm font-medium text-fg transition-[background-color,transform] duration-300 hover:bg-surface active:scale-[0.97]"
+              >
+                <Icon aria-hidden className="size-4" strokeWidth={1.75} />
+                {label}
+                <ArrowUpRight
+                  aria-hidden
+                  className="size-3.5 text-muted transition-[translate,color] duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                />
+              </a>
+            </Magnetic>
           </motion.li>
         ))}
       </motion.ul>
