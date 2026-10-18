@@ -125,12 +125,13 @@ export default function SkillGrid() {
       </div>
 
       <AutoHeight>
-        <ul className="relative grid grid-cols-2 gap-2.5 pt-6 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
+        <ul className="focus-list relative grid grid-cols-2 gap-2.5 pt-6 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {visible.map((skill, i) => (
               <motion.li
                 key={skill.name}
                 layout
+                className="focus-item"
                 initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, amount: 0.4 }}
@@ -142,7 +143,9 @@ export default function SkillGrid() {
                   layout: { type: "spring", stiffness: 320, damping: 32 },
                 }}
               >
-                <SkillTile skill={skill} />
+                <div className="focus-dim h-full">
+                  <SkillTile skill={skill} />
+                </div>
               </motion.li>
             ))}
           </AnimatePresence>

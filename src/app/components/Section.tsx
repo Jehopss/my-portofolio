@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
+import SectionMeter from "./SectionMeter";
 import { Reveal } from "./motion";
 
 function Heading({ id, index, title }: { id: string; index: string; title: string }) {
   return (
     <>
-      <p className="text-sm font-medium text-accent tabular-nums">{index}</p>
+      <SectionMeter id={id} index={index} />
       <h2
         id={`${id}-title`}
         className="mt-3 text-[2.5rem] leading-[1.05] font-medium tracking-[-0.04em] text-fg md:text-5xl"

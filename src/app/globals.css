@@ -211,6 +211,32 @@ html[data-switching] *::after {
   animation: scroll-cue 2.4s var(--ease-expo) infinite;
 }
 
+/* ------------------------------------------------------------------ */
+/*  Focus lists                                                        */
+/*  Point at one item (or tab to it) and the rest of the list steps    */
+/*  back. On touch screens ProjectList marks the row in the middle of  */
+/*  the screen with [data-current] instead. Coming back is held for a  */
+/*  beat so the list doesn't flash while the cursor crosses a gap.     */
+/* ------------------------------------------------------------------ */
+.focus-dim {
+  transition:
+    opacity 0.5s var(--ease-expo) 0.12s,
+    filter 0.5s var(--ease-expo) 0.12s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .focus-list:has(.focus-item:hover) .focus-item:not(:hover) .focus-dim {
+    opacity: 0.35;
+    filter: saturate(0.3);
+    transition-delay: 0s;
+  }
+}
+.focus-list:has(.focus-item :focus-visible) .focus-item:not(:has(:focus-visible)) .focus-dim,
+.focus-list:has(.focus-item[data-current]) .focus-item:not([data-current]) .focus-dim {
+  opacity: 0.35;
+  filter: saturate(0.3);
+  transition-delay: 0s;
+}
+
 /* Mobile menu open: freeze the page underneath. */
 html.menu-open {
   overflow: hidden;

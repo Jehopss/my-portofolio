@@ -11,12 +11,12 @@ export default function Expertise() {
         </div>
       </Reveal>
       <StaggerList
-        className="mt-5 grid border-t border-line sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3"
-        itemClassName="border-b border-line"
+        className="focus-list mt-5 grid border-t border-line sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3"
+        itemClassName="focus-item border-b border-line"
         step={0.04}
       >
         {expertise.map(({ name, icon: Icon }, i) => (
-          <div key={name} className="group flex items-center gap-4 py-4">
+          <div key={name} className="group focus-dim flex items-center gap-4 py-4">
             <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent transition-transform duration-700 ease-spring group-hover:scale-110 group-hover:-rotate-8">
               <Icon aria-hidden className="size-[1.15rem]" strokeWidth={1.6} />
             </span>

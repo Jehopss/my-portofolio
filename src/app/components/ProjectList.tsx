@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Figma, Github } from "lucide-react";
 
@@ -100,6 +100,20 @@ export default function ProjectList() {
   const [revealed, setRevealed] = useState(false);
   const [open, setOpen] = useState<{ project: number; index: number; origin: number } | null>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
+  const list = useRef<HTMLUListElement>(null);
+
+  // Touch screens have no hover, so the row crossing the middle of the screen
+  // takes the focus instead (see .focus-list in globals.css).
+  useEffect(() => {
+    const rows = list.current;
+    if (!rows || !window.matchMedia("(hover: none)").matches) return;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.target.toggleAttribute("data-current", entry.isIntersecting)),
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+    rows.querySelectorAll(":scope > li").forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
+  }, [filter]);
 
   const trackPointer = (event: PointerEvent<HTMLLIElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -154,7 +168,8 @@ export default function ProjectList() {
       </div>
 
       <motion.ul
-        className="border-t border-line"
+        ref={list}
+        className="focus-list border-t border-line"
         onViewportEnter={() => setRevealed(true)}
         viewport={{ once: true, amount: 0.15 }}
       >
@@ -172,7 +187,7 @@ export default function ProjectList() {
                 exit={{ opacity: 0, scale: 0.98, filter: "blur(4px)", transition: { duration: 0.25 } }}
                 transition={{ layout: { type: "spring", stiffness: 320, damping: 34 } }}
                 onPointerMove={trackPointer}
-                className="group relative border-b border-line"
+                className="group focus-item relative border-b border-line"
               >
                 <div
                   aria-hidden
@@ -182,7 +197,7 @@ export default function ProjectList() {
                       "radial-gradient(28rem circle at var(--x, 50%) var(--y, 50%), var(--accent-soft), transparent 70%)",
                   }}
                 />
-                <div className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 py-7 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-6 md:py-8">
+                <div className="focus-dim relative grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 py-7 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-6 md:py-8">
                   <span className="pt-1.5 text-sm text-muted tabular-nums">{String(number + 1).padStart(2, "0")}</span>
 
                   <div className="min-w-0">
